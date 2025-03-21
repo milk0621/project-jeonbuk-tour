@@ -1,1 +1,1 @@
-print("hasdfi")
+print("ㅁㅁㅁㅁ")

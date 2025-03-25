@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>header</title>
-    <script>
-        (function(d) {
-            var config = {
-            kitId: 'ses4qhw',
-            scriptTimeout: 3000,
-            async: true
-            },
-            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-        })(document);
-    </script>
     <link rel="stylesheet" href="{{url_for('static', filename='./css/header.css')}}">
 </head>
 <body>
@@ -31,9 +21,43 @@
                     <input type="text" placeholder="통합검색">
                     <button type="submit"><img src="{{url_for('static', filename='./img/search_icon.png')}}" alt="검색버튼(돋보기)"></button>
                 </div>
-                <a href="#">로그인</a>
+                <p id="login-btn">로그인</p>
+            </div>
+            <div id="login-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>로그인</h2>
+                    <input type="text" placeholder="아이디"><br>
+                    <input type="password" placeholder="비밀번호">
+                    <div class="text-box">
+                        <p>아이디가 없으신가요?</p>
+                        <p id="join">회원가입</p>
+                    </div>
+                    <button>로그인</button>
+                </div>
+            </div>
+            <div id="join-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>회원가입</h2>
+                    <input type="text" placeholder="아이디"><br>
+                    <input type="password" placeholder="비밀번호"><br>
+                    <input type="text" placeholder="이름">
+                    <div class="email-box">
+                        <input type="text" placeholder="이메일">
+                        <button>이메일 전송</button>
+                    </div>
+                    <input type="text" placeholder="이메일 인증번호">
+                    <div class="text-box">
+                        <p>이미 아이디가 있으신가요?</p>
+                        <p id="login">로그인</p>
+                    </div>
+                    <button>회원가입</button>
+                </div>
             </div>
         </div>
     </header>
 </body>
+<script src="{{url_for('static', filename='./js/jquery-3.7.1.js')}}"></script>
+<script src="{{url_for('static', filename='./js/header.js')}}"></script>
 </html>

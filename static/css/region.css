@@ -23,6 +23,7 @@
 .content img{
     width: 220px;
     height: 198px;
+    object-fit: cover;
     border-radius: 10px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;

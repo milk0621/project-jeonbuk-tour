@@ -31,7 +31,11 @@ a {
 
 header {
     width: 100%;
+    background-color: #fff;
     box-shadow: 0px 1px 12px 0px #0000001f;
+    position: fixed;
+    top: 0;
+    z-index: 10;
 }
 
 .container {

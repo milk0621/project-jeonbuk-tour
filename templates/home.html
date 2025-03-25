@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='./css/home.css')}}">
 </head>
 <body>
     {%include "header.html"%}
+    <div class="slider_wrap">
+        <div class="slider_inner">
+            <div class="slider s1"><img alt="" src="{{url_for('static', filename='./img/slide_1.jpg')}}"></div>
+            <div class="slider s2"><img alt="" src="{{url_for('static', filename='./img/slide_2.jpg')}}"></div>
+            <div class="slider s3"><img alt="" src="{{url_for('static', filename='./img/slide_3.jpg')}}"></div>
+            <div class="slider s3"><img alt="" src="{{url_for('static', filename='./img/slide_4.jpg')}}"></div>
+            <div class="slider s3"><img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}"></div>
+        </div>
+    </div>
 </body>
+<script src="{{url_for('static', filename='./js/jquery-3.7.1.js')}}"></script>
+<script src="{{url_for('static', filename='./js/home.js')}}"></script>
 </html>

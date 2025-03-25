@@ -13,4 +13,8 @@ def region():
 def theme():
     return render_template("theme.html")
 
+@app.route("/mypage")
+def mypage():
+    return render_template("mypage.html")
+
 app.run(debug=True)

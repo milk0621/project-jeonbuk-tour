@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -100,
-    "scrollLeft": -0.5929,
+    "scrollTop": -400,
+    "scrollLeft": -30.8626,
     "zoomLevel": 1,
     "show": 511,
     "database": 4,
@@ -106,7 +106,8 @@
           "0cuuVBiNgeTnmxrzQNewJ",
           "5qWQVtvHMbKmGSMqParVL",
           "mTmJSUYEw2njHCPVBjotL",
-          "hkf5ruoVEszqrcYT-AXgm"
+          "hkf5ruoVEszqrcYT-AXgm",
+          "4aCJ_LepZuZ9lPKRooWAW"
         ],
         "seqColumnIds": [
           "nv6vgZJafZ7BjL72BVD81",
@@ -120,7 +121,8 @@
           "0cuuVBiNgeTnmxrzQNewJ",
           "5qWQVtvHMbKmGSMqParVL",
           "mTmJSUYEw2njHCPVBjotL",
-          "hkf5ruoVEszqrcYT-AXgm"
+          "hkf5ruoVEszqrcYT-AXgm",
+          "4aCJ_LepZuZ9lPKRooWAW"
         ],
         "ui": {
           "x": 109,
@@ -131,7 +133,7 @@
           "color": "#EDB5FF"
         },
         "meta": {
-          "updateAt": 1742885438268,
+          "updateAt": 1742887841776,
           "createAt": 1742543757324
         }
       },
@@ -340,18 +342,18 @@
         "tableId": "RgUT3hhw9eR635de-TwyC",
         "name": "email",
         "comment": "이메일",
-        "dataType": "VARCHAR",
+        "dataType": "VARCHAR(255)",
         "default": "",
         "options": 12,
         "ui": {
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 60,
+          "widthDataType": 81,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1742543426836,
+          "updateAt": 1742886975195,
           "createAt": 1742543391012
         }
       },
@@ -1094,6 +1096,26 @@
           "updateAt": 1742879517302,
           "createAt": 1742879434364
         }
+      },
+      "4aCJ_LepZuZ9lPKRooWAW": {
+        "id": "4aCJ_LepZuZ9lPKRooWAW",
+        "tableId": "jp2rJ10Ovi7juQYaN22Vc",
+        "name": "score",
+        "comment": "별점",
+        "dataType": "VARCHAR",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1742887963199,
+          "createAt": 1742887841775
+        }
       }
     },
     "relationshipEntities": {
@@ -1107,7 +1129,7 @@
           "columnIds": [
             "F6t3wZBg06DulHJnw-P5U"
           ],
-          "x": 312.5001,
+          "x": 320.5001,
           "y": 335.33320000000003,
           "direction": 8
         },
@@ -1163,7 +1185,7 @@
           "columnIds": [
             "F6t3wZBg06DulHJnw-P5U"
           ],
-          "x": 563.0001,
+          "x": 579.0001,
           "y": 211.3332,
           "direction": 2
         },
@@ -1220,7 +1242,7 @@
             "nv6vgZJafZ7BjL72BVD81"
           ],
           "x": 559,
-          "y": 966.6666666666665,
+          "y": 986.6666666666665,
           "direction": 2
         },
         "end": {
@@ -1248,7 +1270,7 @@
             "nv6vgZJafZ7BjL72BVD81"
           ],
           "x": 559,
-          "y": 737.3333333333333,
+          "y": 741.3333333333333,
           "direction": 2
         },
         "end": {
@@ -1304,7 +1326,7 @@
             "nv6vgZJafZ7BjL72BVD81"
           ],
           "x": 559,
-          "y": 851.9999999999999,
+          "y": 863.9999999999999,
           "direction": 2
         },
         "end": {
@@ -1410,7 +1432,7 @@
       -1,
       {
         "name": 1742543399423,
-        "dataType": 1742543403083,
+        "dataType": 1742886975194,
         "options(notNull)": 1742543413451,
         "comment": 1742543422854,
         "options(unique)": 1742543426835
@@ -1898,6 +1920,17 @@
         "comment": 1742879462625,
         "dataType": 1742879473757,
         "options(unique)": 1742879517302
+      }
+    ],
+    "4aCJ_LepZuZ9lPKRooWAW": [
+      "tableColumnEntities",
+      1742887841774,
+      -1,
+      {
+        "comment": 1742887848010,
+        "options(notNull)": 1742887923598,
+        "dataType": 1742887963198,
+        "name": 1742887940159
       }
     ]
   }

@@ -8,7 +8,7 @@ button { font-family: "pretendard", sans-serif; }
 
 .slider_wrapper {
     position: relative;
-    width: 500%;
+    width: 700%;
     max-width: 100%;  /* 원하는 크기로 조정 가능 */
     margin: auto;
     overflow: hidden; /* 빈 공간 방지 */

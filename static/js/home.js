@@ -21,7 +21,7 @@ $(document).ready(function () {
         setTimeout(() => {
             if (currentIndex >= sliderCount) {
                 sliderInner.css("transition", "none");
-                currentIndex = 1;
+                currentIndex = 0;
                 sliderInner.css("transform", `translateX(${-currentIndex * slideWidth}px)`);
             } else if (currentIndex <= 0) {
                 sliderInner.css("transition", "none");
@@ -36,15 +36,6 @@ $(document).ready(function () {
     }
 
     let slideInterval = setInterval(autoSlide, 5000);
-
-    $(".slider_wrapper").hover(
-        function () {
-            clearInterval(slideInterval);
-        },
-        function () {
-            slideInterval = setInterval(autoSlide, 5000);
-        }
-    );
 
     // 반응형 대응: 창 크기 변경 시 슬라이드 너비 재설정
     $(window).resize(function () {

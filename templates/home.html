@@ -10,11 +10,35 @@
     {%include "header.html"%}
     <div class="slider_wrap">
         <div class="slider_inner">
-            <div class="slider s1"><img alt="" src="{{url_for('static', filename='./img/slide_1.jpg')}}"></div>
-            <div class="slider s2"><img alt="" src="{{url_for('static', filename='./img/slide_2.jpg')}}"></div>
-            <div class="slider s3"><img alt="" src="{{url_for('static', filename='./img/slide_3.jpg')}}"></div>
-            <div class="slider s3"><img alt="" src="{{url_for('static', filename='./img/slide_4.jpg')}}"></div>
-            <div class="slider s3"><img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}"></div>
+            <div class="slider s1">
+                <img alt="" src="{{url_for('static', filename='./img/slide_1.jpg')}}">
+            </div>
+            <div class="slider s2">
+                <img alt="" src="{{url_for('static', filename='./img/slide_2.jpg')}}">
+            </div>
+            <div class="slider s3">
+                <img alt="" src="{{url_for('static', filename='./img/slide_3.jpg')}}">
+            </div>
+            <div class="slider s3">
+                <img alt="" src="{{url_for('static', filename='./img/slide_4.jpg')}}">
+            </div>
+            <div class="slider s3">
+                <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div>
+            <h1>최근 가장 핫한 관광지</h1>
+            <p>최근 가장 인기있는 전라북도의 관광명소를 방문해 보세요!</p>
+            <div>
+                <div class="con">
+                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
+                    <h3>전주 동물원</h3>
+                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
+                </div>
+            </div>
+            <button>+더보기</button>
         </div>
     </div>
 </body>

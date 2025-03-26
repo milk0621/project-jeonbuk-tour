@@ -9,6 +9,7 @@ $(document).ready(function() {
         }
         $(".slider_inner").css("transform", `translateX(${-currentIndex * 100}%)`);
     }
-
     setInterval(moveSlide, 3000); // 3초마다 슬라이드 전환
+
+    
 });

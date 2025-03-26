@@ -3,7 +3,7 @@ import sys
 sys.path.append(".")
 from vo.favorites_vo import FavoritesVO
 
-class FavoriteDao:
+class FavoritesDao:
     def __init__(self):
         self.conn = pymysql.connect(
             host="***REMOVED***",

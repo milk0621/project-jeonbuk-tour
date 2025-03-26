@@ -1,4 +1,7 @@
-from dao.user_dao import UserDAO
-
+from favorites_dao import FavoritesDao
+from user_dao import UserDAO
+from vo.user_vo import UserVO
 dao = UserDAO()
-dao.join("hong", "1234", "홍길동", "hong@example.com")
+vo = UserVO()
+vo = dao.get_one_user("hong")
+print(vo.id)

@@ -22,8 +22,30 @@ class UserDAO:
     
     #2. 로그인
     def login(self, id, pw):
-        sql = "select * from user where id = %s, pw = %s"
+        sql = "select * from user where id = %s and pw = %s and user_type = 1"
         self.cursor.execute(sql, (id, pw))
         result = self.cursor.fetchone()
+        return result
+    
+    #3. 회원조회(마이페이지)
+    def get_one_user(self, id):
+        sql = "select * from user where id = %s and user_type = 1"
+        self.cursor.execute(sql, (id))
+        result = self.cursor.fetchone()
         if result:
-            no, id, pw, name, email = result
+            no, id, pw, name, email, user_type, create_date, delete_date = result
+            return UserVO(no, id, pw, name, email, user_type, create_date, delete_date)
+        else:
+            return None
+        
+    #4. 비밀번호변경
+    def update_pw(self, id):
+        sql = "update user set pw = %s where id = %s"
+        self.cursor.execute(sql, (id))
+        self.conn.commit()
+        
+    #5. 삭제
+    def delete_user(self, id):
+        sql = "update user set user_type = 99 delete_date = now() where id = %s"
+        self.cursor.execute(sql, (id))
+        self.conn.commit()

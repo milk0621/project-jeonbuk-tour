@@ -1,9 +1,13 @@
+body {
+   
+}
+
 button { font-family: "pretendard", sans-serif; }
 
 .wrap {
-    width: 1520px;
-    margin: 0 auto;
     text-align: center;
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 .slider_wrapper {
@@ -64,7 +68,24 @@ button { font-family: "pretendard", sans-serif; }
     cursor: pointer;
 }
 
-.con img {
+.slideContainer {
+    width: 100%;
+    height: 275px;
+    overflow: hidden;
+}
+
+.slideWrap {
+    width: 100%;
+    display: flex;
+}
+
+.slide {
+    position: relative;
+    transform: translateX(-50%);
+    margin: 0 10px;
+}
+
+.slide img {
     width: 450px;
     height: 275px;
     object-fit: cover;

@@ -37,8 +37,11 @@ $(document).ready(function () {
 
     let slideInterval = setInterval(autoSlide, 5000);
 
-    // 반응형 대응: 창 크기 변경 시 슬라이드 너비 재설정
-    $(window).resize(function () {
-        moveSlide(currentIndex);
-    });
 });
+
+setInterval(function(){
+    $('.slideWrap').animate({'margin-left':'-450px'},function(){
+        $('.slide').first().appendTo('.slideWrap')
+        $('.slideWrap').css({'margin-left':'0px'})
+    })
+},3000)

@@ -1,0 +1,71 @@
+h1 { 
+    font-size: 2rem; 
+    font-weight: 800;
+}
+p {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 400;
+}
+.wrap {
+    width: 940px;
+    margin: 0 auto;
+    margin-top: 200px;;
+}
+.post-top {
+    text-align: center;
+}
+.post-top span {
+    color: #666;
+    font-weight: 400;
+    display: inline-block;
+    margin: 5px 0 20px 0;
+}
+.post-top p {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+.wrap>img {
+    width: 100%;
+    object-fit: cover;
+    margin: 30px 0;
+}
+.text-wrapper { width : 940px; }
+.text {
+    overflow: hidden;
+    /* 요소의 표시 방법을 -webkit-box로 표시 */
+    display: -webkit-box;
+    /* webkit-box로 표시된 자식 요소들의 배치 방법 결정 (여기서는 수직) */ 
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    text-align :justify;
+    font-size: 1.1rem;
+    line-height: 1.7rem;
+    margin: 15px 0;
+}   
+.more-text, .less-text {
+    font-size: 1.1rem;
+    color: #333;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.less-text { display: none; }
+#map {
+    margin: 50px 0;
+}
+.review { width : 940px; }
+.review-text {
+    text-align :justify;
+    margin: 20px 0;
+}
+.review-text span {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 400;
+}
+.review a {
+    color: #333;
+    font-size: 1rem;
+    display: block;
+    text-align: right;
+}

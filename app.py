@@ -17,4 +17,12 @@ def theme():
 def mypage():
     return render_template("mypage.html")
 
+@app.route("/post")
+def post():
+    return render_template("post.html")
+
+@app.route("/review")
+def review():
+    return render_template("review.html")
+
 app.run(debug=True)

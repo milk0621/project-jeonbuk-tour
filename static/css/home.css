@@ -1,11 +1,4 @@
 button { font-family: "pretendard", sans-serif; }
-
-.wrap {
-    text-align: center;
-    max-width: 100vw;
-    overflow: hidden;
-}
-
 .slider_wrapper {
     position: relative;
     width: 700%;
@@ -15,23 +8,18 @@ button { font-family: "pretendard", sans-serif; }
     background-size: cover; /* 배경을 커버로 설정 */
     background-position: center;
 }
-
-/* 슬라이드 내부 요소 (가로 정렬) */
 .slider_inner {
     display: flex;
     width: 100%;
     transition: transform 1.2s ease-in-out;
     will-change: transform; /* 애니메이션 최적화 */
 }
-
-/* 각 슬라이드 */
 .slider {
     min-width: 100%; /* 빈 공간 방지 */
     flex: 0 0 100%;
     position: relative;
     backface-visibility: hidden; /* 애니메이션 최적화 */
 }
-
 .slider img {
     display: block;
     width: 100vw;
@@ -39,18 +27,15 @@ button { font-family: "pretendard", sans-serif; }
     object-fit: cover;
     filter: brightness(45%)
 }
-
 .txt {
     position: absolute;
     left: 10%;
     top: 43%;
 }
-
 .txt h1 {
     color: #fff;
     font-size: 4rem;
 }
-
 .txt button {
     background-color: rgba(0, 0, 0, 0.0);
     border: 4px solid #fff;
@@ -63,27 +48,61 @@ button { font-family: "pretendard", sans-serif; }
     margin-top: 40px;
     cursor: pointer;
 }
-
+.wrap {
+    text-align: center;
+    max-width: 100vw;
+    overflow: hidden;
+    padding: 150px 0;
+}
+.wrap h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+.wrap>p {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #666;
+}
 .slideContainer {
     width: 100%;
     height: 275px;
     overflow: hidden;
 }
-
 .slideWrap {
     width: 100%;
     display: flex;
+    margin: 120px 0 80px 0;
 }
-
 .slide {
     position: relative;
     transform: translateX(-50%);
     margin: 0 10px;
+    text-align: left;
 }
-
-.slide img {
+.slide img{
     width: 450px;
     height: 275px;
     object-fit: cover;
     border-radius: 20px;
+}
+.slide>h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+.slide>p {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 400;
+}
+.wrap>button{
+    width: 175px;
+    height: 56px;
+    background-color: #000;
+    border: none;
+    border-radius: 28px;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
 }

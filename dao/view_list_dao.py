@@ -1,6 +1,7 @@
 import pymysql
 import sys
 sys.path.append(".")
+from vo.view_list_vo import ViewlistVO
 
 class ViewlistDao:
     def __init__(self):
@@ -21,7 +22,14 @@ class ViewlistDao:
 
     #조회
     def select_view_list(self, uno):
-        sql = "select * from view_list where uno=%s"
+        sql = "select * from view_list order by 'no' desc limit 5 where uno=%s"
         self.cursor.execute(sql, (uno))
+        result = self.cursor.fetchall()
+        view_lists = []
+        for view_list in result:
+            no, uno, sno = view_list
+            vo = ViewlistVO(no, uno, sno)
+            view_lists.append(vo)
+        return view_lists
+            
         
-        #uno, sno 말고 얘 전용 no값이나 create_date 값이 있어야 그걸 바탕으로 나중에 들어온 5개를 가져올 수 있는 거 아닌가? 일단 보류!

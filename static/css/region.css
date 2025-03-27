@@ -1,8 +1,41 @@
-.wrap{
+.wrap {
     width: 1520px;
     margin: 0 auto;
     margin-top: 200px;
     text-align: center;
+}
+.wrap h1 {
+    font-size: 2.4rem;
+}
+.wrap p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #666;
+    margin-top: 5px;
+}
+.region {
+    margin: 30px 0;
+}
+.check_form {
+    display: inline-block;
+}
+.check_form input {
+    display: none;
+}
+.check_form label {
+    display: inline-block;
+    overflow: hidden;
+    width: 120px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    line-height: 30px;
+}
+.check_form input:checked + label {
+    background-color: #000;
+    color: #fff;
 }
 .content-box{
     display: flex;
@@ -42,4 +75,16 @@
 }
 .content .txt p:last-child{
     margin-top: 10px;
+}
+.wrap>button{
+    width: 175px;
+    height: 56px;
+    background-color: #000;
+    border: none;
+    border-radius: 28px;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 110px;
 }

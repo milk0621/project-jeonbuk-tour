@@ -47,15 +47,22 @@ reviews = None
 
 total_reviews = driver.find_elements(By.CLASS_NAME, "jANrlb>div")[2].text
 total_reviews = int(re.sub(r"[^0-9\s]", "", total_reviews))
+
+time.sleep(2)
+
+scroll = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")
 print(total_reviews, type(total_reviews))
+print(scroll.get_attribute('innerHTML'))
+
+scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
 
 while True:
     reviews = driver.find_elements(By.CLASS_NAME, "jftiEf")
     
-    height = driver.execute_script("return document.body.scrollHeight")
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+    height = driver.execute_script(f"return {scroll_el}.scrollHeight")
+    driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
     time.sleep(2)
-    new_heigth = driver.execute_script("return document.body.scrollHeight")
+    new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
     if len(reviews) < 500:
         if total_reviews == reviews:
             break

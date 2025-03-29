@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>review</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='./css/review.css')}}">
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="wrap">
+        <div class="review">
+            <h2>관광지 리뷰</h2>
+            <div class="review-text">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <p>전주한옥마을 한바퀴 돌면서 맛있는 먹거리도 먹으며 아이가 한복 입고 돌아다니는데 꼭 공주님 된 거 같다면서 너무 좋아했어요</p>
+                <span>김*선</span> <span>2025.03.21</span>
+            </div>
+            <hr>
+            <div class="review-text">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                <p>전주한옥마을 한바퀴 돌면서 맛있는 먹거리도 먹으며 아이가 한복 입고 돌아다니는데 꼭 공주님 된 거 같다면서 너무 좋아했어요</p>
+                <span>김*선</span> <span>2025.03.21</span>
+            </div>
+            <a href="/review" class="more-review">리뷰 더보기</a>
+        </div>
+    </div>
+</body>
+<script src="{{url_for('static', filename='./js/jquery-3.7.1.js')}}"></script>
+<script src="{{url_for('static', filename='./js/review.js')}}"></script>
+</html>

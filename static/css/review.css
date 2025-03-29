@@ -1,0 +1,30 @@
+.wrap {
+    width: 940px;
+    margin: 0 auto;
+    margin-top: 200px;;
+}
+.review { width : 940px; }
+.review-text {
+    text-align :justify;
+    margin: 20px 0;
+}
+.review-text span {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 400;
+}
+.review a {
+    color: #333;
+    font-size: 1rem;
+    display: block;
+    text-align: right;
+    text-decoration: underline;
+    text-underline-offset : 5px;
+    text-decoration-color: #333;
+}
+.none {
+    display: none;
+}
+.add {
+    display: block;
+}

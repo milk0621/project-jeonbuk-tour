@@ -53,6 +53,7 @@
     flex-direction: column;
     justify-content: center;
     border-bottom: 1px solid #000;
+    cursor: pointer;
 }
 .content img{
     width: 220px;

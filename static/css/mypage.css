@@ -7,10 +7,38 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    flex-direction: row;
+    justify-content: space-between;
+    padding: 25px 0;
+}
+.info h2 {
+    width: 8%;
 }
 .info hr {
-    flex: 0 0 90%;
+    width: 100%;
+    height: 2px;
+    border: none;
+    background-color: #000;
+    margin: 0;
+}
+.info-details {
+    font-weight: 400;
+    padding-left: 15px;
+}
+.info-details p:nth-child(2) {
+    margin: 5px 0;
+}
+.info-box button{
+    border: none;
+    width: 120px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.view-list h2 {
+    width: 12%;
 }
 .content-box{
     display: flex;

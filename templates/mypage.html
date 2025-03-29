@@ -9,45 +9,46 @@
 <body>
     {% include "header.html" %}
     <div class="wrap">
-        <div class="info">
-            <h2>개인정보</h2>
-            <hr>
-        </div>
-        <div>
-            <p>이름 : 홍길동</p>
-            <p>아이디 : hong</p>
-            <p>이메일 : hong.example.com</p>
-        </div>
-        <div>
-            <button>비밀번호 변경</button>
-        </div>
-        <div class="info">
-            <h2>최근 본 여행지</h2>
-            <hr>
-        </div>
-        <div class="content-box">
-            <div class="content">
-                <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
-                <div class="txt">
-                    <h3>전주 한옥마을</h5>
-                    <p>전주시</p>
-                    <p>#한옥 #전통문화</p>
-                </div>
+        <div class="info-box">
+            <div class="info">
+                <h2>개인정보</h2>
+                <hr>
             </div>
-            <div class="content">
-                <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
-                <div class="txt">
-                    <h3>전주 한옥마을</h5>
-                    <p>전주시</p>
-                    <p>#한옥 #전통문화</p>
-                </div>
+            <div class="info-details">
+                <p>이름 : 홍길동</p>
+                <p>아이디 : hong</p>
+                <p>이메일 : hong.example.com</p>
+                <button>비밀번호 변경</button>
             </div>
-            <div class="content">
-                <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
-                <div class="txt">
-                    <h3>전주 한옥마을</h5>
-                    <p>전주시</p>
-                    <p>#한옥 #전통문화</p>
+            <div class="info view-list">
+                <h2>최근 본 여행지</h2>
+                <hr>
+            </div>
+            <div class="content-box">
+                <div class="content">
+                    <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
+                    <div class="txt">
+                        <h3>전주 한옥마을</h5>
+                        <p>전주시</p>
+                        <p>#한옥 #전통문화</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
+                        <div class="txt">
+                            <h3>전주 한옥마을</h5>
+                            <p>전주시</p>
+                            <p>#한옥 #전통문화</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
+                        <div class="txt">
+                            <h3>전주 한옥마을</h5>
+                            <p>전주시</p>
+                            <p>#한옥 #전통문화</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,12 @@
+.wrap {
+    margin: 0 auto;
+    margin-top: 200px;
+}
+form {
+    width: 940px;
+    margin: 0 auto;
+}
+.question {
+    box-shadow: 0px 1px 12px 0px #0000001f;
+    margin-bottom: 70px;
+}

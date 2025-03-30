@@ -5,6 +5,10 @@ app = Flask(__name__)
 def home():
     return render_template("home.html")
 
+@app.route("/header")
+def header():
+    pass
+
 @app.route("/region")
 def region():
     return render_template("region.html")
@@ -24,5 +28,9 @@ def post():
 @app.route("/review")
 def review():
     return render_template("review.html")
+
+@app.route("/course")
+def recommend():
+    return render_template("course.html")
 
 app.run(debug=True)

@@ -63,20 +63,32 @@ while True:
     driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
     time.sleep(2)
     new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
-    if len(reviews) < 500:
+    if len(reviews) < 10:
         if total_reviews == reviews:
             break
     else:
-        if len(reviews) >= 500:
+        if len(reviews) >= 10:
             break
     
 print(len(reviews))
 
 #스크롤 전부 내린 후 출력
 
-# for review in reviews:
-#     name = review.find_element(By.CLASS_NAME, "d4r55").text
-#     print(name)
+review_data = []
+
+for review in reviews:
+    name = review.find_element(By.CLASS_NAME, "d4r55").text.strip()
+    
+    
+    dict = {
+        "이름" : name
+    }
+    review_data.append(dict)
+    
+df = pd.DataFrame(review_data)
+# df.to_csv("review_data.csv", index=False, encoding="utf-8")
+print(df)
+
 
 driver.quit()
 

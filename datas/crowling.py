@@ -71,11 +71,11 @@ while True:
             break
     
 print(len(reviews))
- 
+
+#스크롤 전부 내린 후 출력
 
 # for review in reviews:
 #     name = review.find_element(By.CLASS_NAME, "d4r55").text
-#     # person_score = review_post.find_element(By.CLASS_NAME, "kvMYJc")
 #     print(name)
 
 driver.quit()

@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -100,
-    "scrollLeft": -30.8626,
+    "scrollTop": -600,
+    "scrollLeft": -487.8935,
     "zoomLevel": 1,
     "show": 511,
     "database": 4,
@@ -145,6 +145,7 @@
           "kH3YC1z059XRO8imX1S7O",
           "wx_BLC8Nxlu_gIyOkS1Et",
           "dTFtceDwZns1Q74bOFuxw",
+          "xkqZCdfG6wQ7Vngp1QJxO",
           "RiVFnisCVt5pYRhOTzL8a",
           "h1vLVXv4dz5iG0JZBvsxb",
           "P2XIgmPxDZOPysdUzKRKE"
@@ -153,20 +154,21 @@
           "kH3YC1z059XRO8imX1S7O",
           "wx_BLC8Nxlu_gIyOkS1Et",
           "dTFtceDwZns1Q74bOFuxw",
+          "xkqZCdfG6wQ7Vngp1QJxO",
           "RiVFnisCVt5pYRhOTzL8a",
           "h1vLVXv4dz5iG0JZBvsxb",
           "P2XIgmPxDZOPysdUzKRKE"
         ],
         "ui": {
-          "x": 762,
-          "y": 843,
+          "x": 799,
+          "y": 813,
           "zIndex": 203,
           "widthName": 60,
           "widthComment": 60,
           "color": "#FFD09B"
         },
         "meta": {
-          "updateAt": 1742884254984,
+          "updateAt": 1743391765843,
           "createAt": 1742544332693
         }
       },
@@ -1116,6 +1118,26 @@
           "updateAt": 1742887963199,
           "createAt": 1742887841775
         }
+      },
+      "xkqZCdfG6wQ7Vngp1QJxO": {
+        "id": "xkqZCdfG6wQ7Vngp1QJxO",
+        "tableId": "pHWHJGVynM4UcZkaRI8XJ",
+        "name": "author",
+        "comment": "작성자",
+        "dataType": "VARCHAR",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1743391758853,
+          "createAt": 1743391741344
+        }
       }
     },
     "relationshipEntities": {
@@ -1250,8 +1272,8 @@
           "columnIds": [
             "wx_BLC8Nxlu_gIyOkS1Et"
           ],
-          "x": 762,
-          "y": 943,
+          "x": 799,
+          "y": 925,
           "direction": 1
         },
         "meta": {
@@ -1878,6 +1900,17 @@
         "options(notNull)": 1742887923598,
         "dataType": 1742887963198,
         "name": 1742887940159
+      }
+    ],
+    "xkqZCdfG6wQ7Vngp1QJxO": [
+      "tableColumnEntities",
+      1743391741343,
+      -1,
+      {
+        "name": 1743391745831,
+        "dataType": 1743391749303,
+        "options(notNull)": 1743391752823,
+        "comment": 1743391758852
       }
     ]
   }

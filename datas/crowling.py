@@ -9,9 +9,6 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-#관광지이름 추출
-df = pd.read_csv("./datas/region.csv")
-title = df["title"]
 
 #봇우회 코드
 chrome_browser = subprocess.Popen(r'C:\Program Files\Google\Chrome\Application\chrome.exe --remote-debugging-port=9222 --user-data-dir="C:\chromeCookie"')
@@ -29,64 +26,113 @@ time.sleep(2)
 
 #검색창 찾기
 search_box = driver.find_element(By.NAME, "q")
-
-#검색어 입력 후 엔터
-search_box.send_keys("전주 한옥마을")
-search_box.send_keys(Keys.RETURN)
-
-time.sleep(2)
-
-review = driver.find_element(By.CSS_SELECTOR, ".hh2c6:nth-child(2)")
-review.click()
-
-score = driver.find_element(By.CLASS_NAME, "fontDisplayLarge").text
-
-time.sleep(2)
-
-reviews = None
-
-total_reviews = driver.find_elements(By.CLASS_NAME, "jANrlb>div")[2].text
-total_reviews = int(re.sub(r"[^0-9\s]", "", total_reviews))
-
-time.sleep(2)
-
-scroll = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")
-print(total_reviews, type(total_reviews))
-print(scroll.get_attribute('innerHTML'))
-
-scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
-
-while True:
-    reviews = driver.find_elements(By.CLASS_NAME, "jftiEf")
-    
-    height = driver.execute_script(f"return {scroll_el}.scrollHeight")
-    driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
-    time.sleep(2)
-    new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
-    if len(reviews) < 10:
-        if total_reviews == reviews:
-            break
-    else:
-        if len(reviews) >= 10:
-            break
-    
-print(len(reviews))
-
-#스크롤 전부 내린 후 출력
-
+#전북특별자치도 부안군 변산면 새만금로 447-27 가력도항
+#관광지이름 추출
+df = pd.read_csv("./datas/region.csv")
 review_data = []
+titles = ["가왕 송흥록·국창 박초월 생가"]
+addrs = ["전북특별자치도 남원시 운봉읍 비전길 7"]
+for title, addr in zip(titles, addrs):
 
-for review in reviews:
-    name = review.find_element(By.CLASS_NAME, "d4r55").text.strip()
+    #검색어 입력 후 엔터
+    search_box.clear()
+    search_box.send_keys(addr+ title)
+    search_box.send_keys(Keys.RETURN)
+
+    time.sleep(2)
+
+    #검색결과가 두개 이상일때 첫번째 클릭
+    try:
+        #search_result = driver.find_element(By.CLASS_NAME, "aIFcqe")
+        search_result = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd")
+        
+        #클래스가 없는 첫번째 div 선택
+        print(search_result.find_element(By.XPATH, "./div[not(@class) or @class='']").get_attribute("outerHTML"))
+
+        #자식 선택 후 클릭
+        search_result.click()
+    except Exception as e:
+        print("error@@@@", e)
+        continue
     
-    
-    dict = {
-        "이름" : name
-    }
-    review_data.append(dict)
+#m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
+#m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
+
+#QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
+
+#QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
+
+    try:
+        review = driver.find_element(By.CSS_SELECTOR, ".hh2c6:nth-child(2)")
+        review.click()
+    except:
+        continue
+
+
+    time.sleep(2)
+
+    score = driver.find_element(By.CSS_SELECTOR, ".fontDisplayLarge").text
+
+    reviews = None
+
+    total_reviews = driver.find_elements(By.CLASS_NAME, "jANrlb>div")[2].text
+    total_reviews = int(re.sub(r"[^0-9\s]", "", total_reviews))
+
+    time.sleep(2)
+
+    scroll = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")
+
+    scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
+
+    while True:
+        reviews = driver.find_elements(By.CLASS_NAME, "jftiEf")
+        
+        height = driver.execute_script(f"return {scroll_el}.scrollHeight")
+        driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
+        time.sleep(2)
+        new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
+        if len(reviews) < 2:
+            if total_reviews == reviews:
+                break
+        else:
+            if len(reviews) >= 2:
+                break
+
+    #스크롤 전부 내린 후 출력
+
+    for review in reviews:
+        
+        try:
+            button_box = review.find_element(By.CLASS_NAME, "MyEned")
+        except:
+            pass
+        print(button_box.get_attribute("innerHTML"))
+        if button_box and len(button_box.find_elements(By.TAG_NAME, "span")) >= 2:
+            button = review.find_element(By.CLASS_NAME, "kyuRq")
+            button.click()
+        else:
+            pass
+
+        time.sleep(2)
+
+        name = review.find_element(By.CLASS_NAME, "d4r55").text.strip()
+        try:
+            content = review.find_element(By.CLASS_NAME, "wiI7pd").text.strip()
+        except:
+            content = ""
+        star = len(review.find_elements(By.CLASS_NAME, "elGi1d"))
+
+        dict = {
+            "관광지이름" : title,
+            "총점" : score,
+            "이름" : name,
+            "내용" : content,
+            "별점" : star
+        }
+        review_data.append(dict)
     
 df = pd.DataFrame(review_data)
-# df.to_csv("review_data.csv", index=False, encoding="utf-8")
+df.to_csv("review_data.csv", index=False, encoding="utf-8")
 print(df)
 
 

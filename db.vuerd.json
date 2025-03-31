@@ -147,7 +147,6 @@
           "dTFtceDwZns1Q74bOFuxw",
           "xkqZCdfG6wQ7Vngp1QJxO",
           "RiVFnisCVt5pYRhOTzL8a",
-          "h1vLVXv4dz5iG0JZBvsxb",
           "P2XIgmPxDZOPysdUzKRKE"
         ],
         "seqColumnIds": [
@@ -168,7 +167,7 @@
           "color": "#FFD09B"
         },
         "meta": {
-          "updateAt": 1743391765843,
+          "updateAt": 1743400035865,
           "createAt": 1742544332693
         }
       },
@@ -1273,7 +1272,7 @@
             "wx_BLC8Nxlu_gIyOkS1Et"
           ],
           "x": 799,
-          "y": 925,
+          "y": 913,
           "direction": 1
         },
         "meta": {
@@ -1622,7 +1621,7 @@
     "h1vLVXv4dz5iG0JZBvsxb": [
       "tableColumnEntities",
       1742544630643,
-      -1,
+      1743400035857,
       {
         "name": 1742544669495,
         "dataType": 1742544674747,

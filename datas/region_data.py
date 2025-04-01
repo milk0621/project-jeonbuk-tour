@@ -31,4 +31,4 @@ print(res)
 df = pd.DataFrame(res)
 print(df.head())
 
-df.to_csv("datas/region.csv")
+df.to_csv("datas/region.csv", index=False)

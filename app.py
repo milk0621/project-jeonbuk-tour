@@ -1,13 +1,22 @@
 from flask import Flask, redirect, render_template, request
+from dao.user_dao import UserDAO
 app = Flask(__name__)
 
 @app.route("/")
 def home():
     return render_template("home.html")
+        
 
-@app.route("/header")
-def header():
-    pass
+@app.route("/join", methods=["POST"])
+def join():
+    id = request.form.get("id")
+    pw = request.form.get("pw")
+    name = request.form.get("name")
+    email = request.form.get("email")
+    dao = UserDAO()
+    dao.join(id, pw, name, email)
+    return redirect("/")
+
 
 @app.route("/region")
 def region():

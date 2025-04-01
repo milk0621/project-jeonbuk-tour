@@ -30,8 +30,8 @@ search_box = driver.find_element(By.NAME, "q")
 #관광지이름 추출
 df = pd.read_csv("./datas/region.csv")
 review_data = []
-titles = ["가왕 송흥록·국창 박초월 생가"]
-addrs = ["전북특별자치도 남원시 운봉읍 비전길 7"]
+titles = df["title"]
+addrs = df["addr1"]
 for title, addr in zip(titles, addrs):
 
     #검색어 입력 후 엔터
@@ -43,31 +43,29 @@ for title, addr in zip(titles, addrs):
 
     #검색결과가 두개 이상일때 첫번째 클릭
     try:
-        #search_result = driver.find_element(By.CLASS_NAME, "aIFcqe")
         search_result = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd")
         
         #클래스가 없는 첫번째 div 선택
-        print(search_result.find_element(By.XPATH, "./div[not(@class) or @class='']").get_attribute("outerHTML"))
+        search_result = search_result.find_element(By.XPATH, "./div[not(@class) or @class='']")
 
         #자식 선택 후 클릭
+        search_result = search_result.find_element(By.CLASS_NAME, "hfpxzc")
         search_result.click()
     except Exception as e:
-        print("error@@@@", e)
-        continue
+        pass
     
-#m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
-#m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
+    #m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
+    #m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
 
-#QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
+    #QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
 
-#QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
-
+    #QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
+    time.sleep(2)
     try:
         review = driver.find_element(By.CSS_SELECTOR, ".hh2c6:nth-child(2)")
         review.click()
     except:
         continue
-
 
     time.sleep(2)
 
@@ -77,40 +75,37 @@ for title, addr in zip(titles, addrs):
 
     total_reviews = driver.find_elements(By.CLASS_NAME, "jANrlb>div")[2].text
     total_reviews = int(re.sub(r"[^0-9\s]", "", total_reviews))
-
     time.sleep(2)
-
-    scroll = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")
-
-    scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
-
+    
+    try:
+        scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
+        
+    except:
+        pass
+        
     while True:
         reviews = driver.find_elements(By.CLASS_NAME, "jftiEf")
-        
         height = driver.execute_script(f"return {scroll_el}.scrollHeight")
         driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
         time.sleep(2)
         new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
         if len(reviews) < 2:
-            if total_reviews == reviews:
+            if total_reviews == len(reviews):
                 break
         else:
             if len(reviews) >= 2:
                 break
-
     #스크롤 전부 내린 후 출력
-
     for review in reviews:
         
         try:
             button_box = review.find_element(By.CLASS_NAME, "MyEned")
+            if button_box and len(button_box.find_elements(By.TAG_NAME, "span")) >= 2:
+                button = review.find_element(By.CLASS_NAME, "kyuRq")
+                button.click()
+            else:
+                pass
         except:
-            pass
-        print(button_box.get_attribute("innerHTML"))
-        if button_box and len(button_box.find_elements(By.TAG_NAME, "span")) >= 2:
-            button = review.find_element(By.CLASS_NAME, "kyuRq")
-            button.click()
-        else:
             pass
 
         time.sleep(2)
@@ -133,8 +128,6 @@ for title, addr in zip(titles, addrs):
     
 df = pd.DataFrame(review_data)
 df.to_csv("review_data.csv", index=False, encoding="utf-8")
-print(df)
-
 
 driver.quit()
 

@@ -41,18 +41,25 @@ for title, addr in zip(titles, addrs):
 
     time.sleep(2)
 
+    sibling_count = None
+
     #검색결과가 두개 이상일때 첫번째 클릭
     try:
         search_result = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd")
-        
+
         #클래스가 없는 첫번째 div 선택
         search_result = search_result.find_element(By.XPATH, "./div[not(@class) or @class='']")
+        
+        siblings = search_result.find_elements(By.XPATH, "./preceding-sibling::div");
+        #print(f"형제 개수: {len(siblings)}")
+
+        sibling_count = len(siblings)
 
         #자식 선택 후 클릭
         search_result = search_result.find_element(By.CLASS_NAME, "hfpxzc")
         search_result.click()
     except Exception as e:
-        pass
+        print(e)
     
     #m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
     #m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
@@ -70,6 +77,7 @@ for title, addr in zip(titles, addrs):
     time.sleep(2)
 
     score = driver.find_element(By.CSS_SELECTOR, ".fontDisplayLarge").text
+    print(score)
 
     reviews = None
 
@@ -78,12 +86,20 @@ for title, addr in zip(titles, addrs):
     time.sleep(2)
     
     try:
-        scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
-        
+        if sibling_count != None:
+            if sibling_count == 2:
+                scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
+            else:
+                scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
+        else :
+            scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
     except:
         pass
+
+    print(scroll_el)
         
     while True:
+        print("while works!")
         reviews = driver.find_elements(By.CLASS_NAME, "jftiEf")
         height = driver.execute_script(f"return {scroll_el}.scrollHeight")
         driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")

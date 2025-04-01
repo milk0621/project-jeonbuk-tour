@@ -89,11 +89,11 @@ for title, addr in zip(titles, addrs):
         driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
         time.sleep(2)
         new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
-        if len(reviews) < 2:
+        if len(reviews) < 500:
             if total_reviews == len(reviews):
                 break
         else:
-            if len(reviews) >= 2:
+            if len(reviews) >= 500:
                 break
     #스크롤 전부 내린 후 출력
     for review in reviews:

@@ -80,7 +80,7 @@ header {
     right: 0;
 }
 
-#login-btn {
+#login-btn, #mypage {
     font-size: 1.4rem;
     cursor: pointer;
 }

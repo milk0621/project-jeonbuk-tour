@@ -1,4 +1,4 @@
 class FavoritesVO:
-    def __init__(self, uno, sno):
-        self.uno = uno
+    def __init__(self, id, sno):
+        self.id = id
         self.sno = sno

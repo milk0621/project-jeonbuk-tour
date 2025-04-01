@@ -15,15 +15,15 @@ class ViewlistDao:
         self.cursor = self.conn.cursor()
     
     #추가
-    def insert_view_list(self, uno, sno):
-        sql = "insert into view_list(uno, sno)values(%s, %s)"
-        self.cursor.execute(sql, (uno, sno))
+    def insert_view_list(self, id, sno):
+        sql = "insert into view_list(id, sno)values(%s, %s)"
+        self.cursor.execute(sql, (id, sno))
         self.conn.commit()
 
     #조회
     def select_view_list(self, uno):
-        sql = "select * from view_list order by 'no' desc limit 5 where uno=%s"
-        self.cursor.execute(sql, (uno))
+        sql = "select * from view_list order by 'no' desc limit 5 where id=%s"
+        self.cursor.execute(sql, (id))
         result = self.cursor.fetchall()
         view_lists = []
         for view_list in result:

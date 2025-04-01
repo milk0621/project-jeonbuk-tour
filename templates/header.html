@@ -21,7 +21,11 @@
                     <input type="text" placeholder="통합검색">
                     <button type="submit"><img src="{{url_for('static', filename='./img/search_icon.png')}}" alt="검색버튼(돋보기)"></button>
                 </div>
-                <p id="login-btn">로그인</p>
+                {% if not session["id"] %}
+                    <p id="login-btn">로그인</p>
+                {% else %}
+                    <p id="mypage" onclick="location.href='/mypage'">마이페이지</p>
+                {% endif %}
             </div>
             <form action="/login" method="post">
                 <div id="login-modal" class="modal">

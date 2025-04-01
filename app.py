@@ -1,11 +1,11 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, session
 from dao.user_dao import UserDAO
 app = Flask(__name__)
+app.secret_key = "***REMOVED***"
 
 @app.route("/")
 def home():
-    return render_template("home.html")
-        
+    return render_template("home.html")     
 
 @app.route("/join", methods=["POST"])
 def join():
@@ -17,6 +17,15 @@ def join():
     dao.join(id, pw, name, email)
     return redirect("/")
 
+@app.route("/login", methods=["POST"])
+def login():
+    id = request.form.get("id")
+    pw = request.form.get("pw")
+    dao = UserDAO()
+    result = dao.login(id, pw)
+    if result:
+        session["id"] = id
+    return redirect("/")
 
 @app.route("/region")
 def region():

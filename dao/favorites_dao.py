@@ -16,15 +16,15 @@ class FavoritesDao:
         print("쿼리 객체 생성")
 
     #추가
-    def insert_favorite(self, uno, sno):
-        sql = "insert into favorites(uno, sno)values(%s, %s)"
-        self.cursor.execute(sql, (uno, sno))
+    def insert_favorite(self, id, sno):
+        sql = "insert into favorites(id, sno)values(%s, %s)"
+        self.cursor.execute(sql, (id, sno))
         self.conn.commit()
 
     #삭제
-    def delete_favorite(self, uno):
-        sql = "delete from favorites where uno = %s"
-        self.cursor.execute(sql, (uno))
+    def delete_favorite(self, id):
+        sql = "delete from favorites where id = %s"
+        self.cursor.execute(sql, (id))
         self.conn.commit()
 
     def close(self):
@@ -32,14 +32,14 @@ class FavoritesDao:
         self.conn.close()
 
     #조회
-    def selecte_favorite(self, uno):
-        sql = "select * from favorites where uno = %s"
-        self.cursor.execute(sql, (uno))
+    def selecte_favorite(self, id):
+        sql = "select * from favorites where id = %s"
+        self.cursor.execute(sql, (id))
         result = self.cursor.fetchall()
         favorites = []
         for favorite in result:
-            uno, sno = favorite
-            vo = FavoritesVO(uno, sno)
+            id, sno = favorite
+            vo = FavoritesVO(id, sno)
             favorites.append(vo)
         return favorites
 

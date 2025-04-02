@@ -3,10 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Favorite</title>
     <link rel="stylesheet" href="{{url_for('static', filename='./css/favorite.css')}}">
 </head>
 <body>
     {% include "header.html" %}
+    <div class="wrap">
+        <div class="recommend-txt">
+            <h2>이런 곳은 어때요?</h2>
+            <hr>
+        </div>
+        <div class="recommend">
+            <div class="content-box">
+                {% for item in items %}
+                <div class="content" onclick="location.href='/post/{{item.contentid}}'">
+                    <img src="{{item.firstimage}}" alt="">
+                    <div class="txt">
+                        <h3>{{item.title}}</h5>
+                        <p>{{item.sigungu}}</p>
+                        <p>#한옥 #전통문화</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="favorites-txt">
+            <h2>즐겨찾기</h2>
+            <hr>
+        </div>
+        <div class="favorites">
+            {% for item in items %}
+                <div class="content" onclick="location.href='/post/{{item.contentid}}'">
+                    <img src="{{item.firstimage}}" alt="">
+                    <div class="txt">
+                        <h3>{{item.title}}</h5>
+                        <p>{{item.sigungu}}</p>
+                        <p>#한옥 #전통문화</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>

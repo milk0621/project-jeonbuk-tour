@@ -39,7 +39,7 @@ result["homepage"] = result["homepage"].fillna("")
 
 result["homepage"] = result["homepage"].astype(str).apply(cleanhtml)
 
-result["firstimage"] = result["firstimage"].fillna("")
+result["firstimage"] = result["firstimage"].fillna("https://cdn-icons-png.flaticon.com/512/1174/1174795.png")
 
 result["sigungu"] = result["addr1"].str[7:11]
 

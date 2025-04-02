@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 
 region_df = pd.read_csv("./datas/region.csv")
 
@@ -25,11 +26,22 @@ result = pd.merge( region_post, region_df, how='left', on='contentid')
 
 #결측값 빈문자로 대체
 
-print(result.info())
-
-print(result.isnull().sum())
-
 result.dropna(subset=["title"], inplace=True)
+
+def cleanhtml(text):
+    text = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$\-@\.&+:/?=]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
+    if text:  
+        return text[0]
+    else :
+        return ""
+    
+result["homepage"] = result["homepage"].fillna("")
+
+result["homepage"] = result["homepage"].astype(str).apply(cleanhtml)
+
+result["firstimage"] = result["firstimage"].fillna("")
+
+result["sigungu"] = result["addr1"].str[7:11]
 
 result.to_csv("./datas/pre_region_data.csv", index=False)
 #인덱스 -> DB의 no

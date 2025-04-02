@@ -17,18 +17,20 @@
                 <li><a href="/favorite">즐겨찾기</a></li>
             </ul>
             <div class="right">
-                <div class="search">
-                    <input type="text" placeholder="통합검색">
-                    <button type="submit"><img src="{{url_for('static', filename='./img/search_icon.png')}}" alt="검색버튼(돋보기)"></button>
-                </div>
+                <form action="/search" method="post">
+                    <div class="search">
+                        <input type="text" placeholder="통합검색" name="q" required>
+                        <button type="submit"><img src="{{url_for('static', filename='./img/search_icon.png')}}" alt="검색버튼(돋보기)"></button>
+                    </div>
+                </form>
                 {% if not session["id"] %}
                     <p id="login-btn">로그인</p>
                 {% else %}
                     <p id="mypage" onclick="location.href='/mypage'">마이페이지</p>
                 {% endif %}
             </div>
-            <form action="/login" method="post">
-                <div id="login-modal" class="modal">
+            <div id="login-modal" class="modal">
+                    <form action="/login" method="post">
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <h2>로그인</h2>
@@ -40,10 +42,10 @@
                         </div>
                         <button type="submit">로그인</button>
                     </div>
-                </div>
-            </form>
-            <form action="/join" method="post">
-                <div id="join-modal" class="modal">
+                </form>
+            </div>
+            <div id="join-modal" class="modal">
+                    <form action="/join" method="post">
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <h2>회원가입</h2>
@@ -61,8 +63,8 @@
                         </div>
                         <button type="submit">회원가입</button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </header>
 </body>

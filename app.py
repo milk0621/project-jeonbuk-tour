@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, session
 from dao.user_dao import UserDAO
+from dao.place_dao import PlaceDao
 app = Flask(__name__)
 app.secret_key = "***REMOVED***"
 
@@ -27,21 +28,34 @@ def login():
         session["id"] = id
     return redirect("/")
 
-@app.route("/region")
-def region():
-    return render_template("region.html")
-
-@app.route("/theme")
-def theme():
-    return render_template("theme.html")
-
 @app.route("/mypage")
 def mypage():
     return render_template("mypage.html")
 
-@app.route("/post")
-def post():
-    return render_template("post.html")
+@app.route("/search", methods=["POST"])
+def search():
+    q = request.form.get("q")
+    dao = PlaceDao()
+    dao.search_places(q)
+    return redirect(f"/board?q={q}")
+
+@app.route("/region")
+def region():
+    dao = PlaceDao()
+    vo = dao.get_all_place()
+    return render_template("region.html", items=vo)
+
+@app.route("/post/<int:contentid>")
+def post(no):
+    dao = PlaceDao()
+    vo = dao.get_one_place(no)
+    if vo:
+        return render_template("post.html", data=vo)
+    return redirect("/region")
+
+@app.route("/theme")
+def theme():
+    return render_template("theme.html")
 
 @app.route("/review")
 def review():

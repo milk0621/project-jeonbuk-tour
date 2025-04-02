@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>region</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='./css/region.css')}}">
+</head>
+<body>
+    {%include "header.html"%}
+    <div class="wrap">
+        <h1>검색결과</h1>
+        <div class="content-box">
+            <div class="content" onclick="location.href='/post'">
+                <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
+                <div class="txt">
+                    <h3>전주 한옥마을</h5>
+                    <p>전주시</p>
+                    <p>#한옥 #전통문화</p>
+                </div>
+            </div>
+            <div class="content">
+                <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
+                <div class="txt">
+                    <h3>전주 한옥마을</h5>
+                    <p>전주시</p>
+                    <p>#한옥 #전통문화</p>
+                </div>
+            </div>
+            <div class="content">
+                <img src="{{url_for('static', filename='./img/img.jpg')}}" alt="">
+                <div class="txt">
+                    <h3>전주 한옥마을</h5>
+                    <p>전주시</p>
+                    <p>#한옥 #전통문화</p>
+                </div>
+            </div>
+        </div>
+        <button>+더보기</button>
+    </div>
+</body>
+</html>

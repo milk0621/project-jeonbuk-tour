@@ -1,7 +1,8 @@
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, jsonify
 from dao.user_dao import UserDAO
 from dao.place_dao import PlaceDAO
 from dao.view_list_dao import ViewlistDAO
+from dao.favorites_dao import FavoritesDAO
 
 app = Flask(__name__)
 app.secret_key = "***REMOVED***"
@@ -40,11 +41,11 @@ def mypage():
         id = session.get("id")
         vo = dao.get_one_user(id)
         
-        # region_dao = ViewlistDAO()
-        # region_dao.select_view_list(id)
+        region_dao = ViewlistDAO()
+        #region_dao.select_view_list(id)
         #최근본여행지 해야함
         
-        return render_template("mypage.html", data=vo)
+        return render_template("mypage.html", data=vo, a="data")
     else:
         return render_template("home.html")
 
@@ -53,23 +54,18 @@ def logout():
      session.pop("id", None)
      return render_template("home.html")
 
-@app.route("/search", methods=["POST"])
-def search():
-    q = request.form.get("q")
-    # dao = PlaceDAO()
-    # dao.search_places(f"%{q}%")
-    return redirect(f"/board?q={q}")
-
-@app.route(f"/board", methods=["GET"])
+@app.route("/board", methods=["GET"])
 def board():
-    search_val = request.args.get()
+    q = request.args.get("q")
     dao = PlaceDAO()
-    dao.search_places(f"%{q}%")
-
+    result = dao.search_places(q)
+    return render_template("board.html", items=result)
+    
 @app.route("/region")
 def region():
     dao = PlaceDAO()
-    vo = dao.get_all_place()
+    id = session.get("id")
+    vo = dao.get_all_place(id)
     return render_template("region.html", items=vo)
 
 @app.route("/post/<int:contentid>")
@@ -95,5 +91,20 @@ def review():
 @app.route("/course")
 def recommend():
     return render_template("course.html")
+
+@app.route("/favorite_data", methods=["POST"])
+def favorite_data():
+    dao = FavoritesDAO()
+    chInt = request.form.get("chInt")
+    contentid = request.form.get("contentid")
+    id = session["id"]
+    print(contentid)
+    print(chInt)
+    if chInt == "1":
+        dao.insert_favorite(id, contentid)
+    else:
+        dao.delete_favorite(id, contentid)
+    response = jsonify(result=True)
+    return response
 
 app.run(debug=True)

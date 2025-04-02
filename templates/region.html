@@ -63,13 +63,21 @@
         </div>
         <div class="content-box">
             {% for item in items %}
-            <div class="content" onclick="location.href='/post/{{item.contentid}}'">
-                <div class="checkbox_box" onclick="location.href='/favorite'">
-                    <input type="checkbox" id="{{contentid}}" name="favorite">
-                    <label for="{{contentid}}"><img src="{{url_for('static', filename='./img/favorite.png')}}" alt=""></label>
+            <div class="content">
+                <div class="checkbox_box">
+                    <label for="{{item.contentid}}">
+                        {% if item.checked == 'FALSE' %}
+                            <input type="checkbox" onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
+                            
+                            <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite.png')}}" alt="0">
+                        {% else %}
+                            <input type="checkbox" checked onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
+                            <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite_check.png')}}" alt="1">
+                        {% endif %}
+                    </label>
                 </div>
                 <img src="{{item.firstimage}}" alt="">
-                <div class="txt">
+                <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
                     <h3>{{item.title}}</h5>
                     <p>{{item.sigungu}}</p>
                     <p>#한옥 #전통문화</p>
@@ -80,4 +88,37 @@
         <button>+더보기</button>
     </div>
 </body>
+<script>
+    function favorite(favorite, e){
+        var check = $('#'+favorite).is(':checked');
+        console.log(check)
+        let chInt;
+        
+        if(check == true){
+            chInt = 1;
+        }else{
+            chInt = 0;
+        }
+
+        $.ajax({
+            type : "post",
+            url : "/favorite_data",
+            data : {
+                "chInt" : chInt,
+                "contentid" : favorite
+            },
+            success : function(result){
+                console.log(result);
+                if(chInt == 1){
+                    $('#img_'+favorite).attr("src", "../static/img/favorite_check.png");
+                }else{
+                    $('#img_'+favorite).attr("src", "../static/img/favorite.png");
+                }
+            },
+            error : function(){
+                console.log("오류발생");
+            }
+        });
+    }
+</script>
 </html>

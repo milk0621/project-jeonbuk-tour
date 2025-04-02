@@ -1,5 +1,5 @@
 class PlaceVO:
-    def __init__(self, contentid=None, overview=None, homepage=None, addr1=None, cat1=None, cat2=None, cat3=None, firstimage=None, mapx=None, mapy=None, title=None, sigungu=None):
+    def __init__(self, contentid=None, overview=None, homepage=None, addr1=None, cat1=None, cat2=None, cat3=None, firstimage=None, mapx=None, mapy=None, title=None, sigungu=None, checked=None):
         self.contentid = contentid
         self.overview = overview
         self.homepage = homepage
@@ -12,3 +12,4 @@ class PlaceVO:
         self.mapy = mapy
         self.title = title
         self.sigungu = sigungu
+        self.checked = checked

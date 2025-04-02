@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     let currentIndex = 1; // 첫 번째 복제 때문에 1부터 시작
     const sliderInner = $(".slider_inner");
     const slider = $(".slider");

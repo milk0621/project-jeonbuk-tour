@@ -17,25 +17,29 @@ class PlaceDAO:
 
     #검색 조회
     def search_places(self, q):
-        sql = "select * from place where title like %s or sigungu like %s"
+        sql = "select * from place where title like CONCAT('%%', %s, '%%') or sigungu like CONCAT('%%', %s, '%%')"
         self.cursor.execute(sql, (q, q))
-        result = self.cursor.fetchall()
-        places = []
-        for place in result:
-            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = result
-            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
-            places.append(vo)
-        return places
-
-    #목록 조회
-    def get_all_place(self):
-        sql = "select * from place limit 5"
-        self.cursor.execute(sql)
         result = self.cursor.fetchall()
         places = []
         for place in result:
             contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = place
             vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
+            places.append(vo)
+        return places
+
+    #목록 조회
+    def get_all_place(self, id):
+        if id :
+            sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid limit 5;"
+            self.cursor.execute(sql, (id))
+        else:
+            sql = "select *, 'False' as checked from place limit 5"
+            self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        places = []
+        for place in result:
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked = place
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked)
             places.append(vo)
         return places
     

@@ -63,14 +63,18 @@
         </div>
         <div class="content-box">
             {% for item in items %}
-                <div class="content" onclick="location.href='/post/{{item.contentid}}'">
-                    <img src="{{item.firstimage}}" alt="">
-                    <div class="txt">
-                        <h3>{{item.title}}</h5>
-                        <p>{{item.sigungu}}</p>
-                        <p>#한옥 #전통문화</p>
-                    </div>
+            <div class="content" onclick="location.href='/post/{{item.contentid}}'">
+                <div class="checkbox_box" onclick="location.href='/favorite'">
+                    <input type="checkbox" id="{{contentid}}" name="favorite">
+                    <label for="{{contentid}}"><img src="{{url_for('static', filename='./img/favorite.png')}}" alt=""></label>
                 </div>
+                <img src="{{item.firstimage}}" alt="">
+                <div class="txt">
+                    <h3>{{item.title}}</h5>
+                    <p>{{item.sigungu}}</p>
+                    <p>#한옥 #전통문화</p>
+                </div>
+            </div>
             {% endfor %}
         </div>
         <button>+더보기</button>

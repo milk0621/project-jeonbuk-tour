@@ -19,7 +19,7 @@
 .check_form {
     display: inline-block;
 }
-.check_form input {
+.check_form input, .content-box input {
     display: none;
 }
 .check_form label {
@@ -45,6 +45,12 @@
     align-items: center;
     gap: 35px;
 }
+.con {
+    position: relative;
+}
+.checkbox_box {
+    position: absolute;
+}
 .content{
     width: 220px;
     box-shadow: 0px 1px 12px 0px #0000001f;
@@ -55,7 +61,7 @@
     border-bottom: 1px solid #000;
     cursor: pointer;
 }
-.content img{
+.content>img{
     width: 220px;
     height: 198px;
     object-fit: cover;

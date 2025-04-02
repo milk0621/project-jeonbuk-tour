@@ -1,6 +1,5 @@
 class UserVO:
-    def __init__(self, no=None, id=None, pw=None, name=None, email=None, user_type=None, create_date=None, delete_date=None):
-        self.no = no
+    def __init__(self, id=None, pw=None, name=None, email=None, user_type=None, create_date=None, delete_date=None):
         self.id = id
         self.pw = pw
         self.name = name

@@ -3,7 +3,7 @@ import sys
 sys.path.append(".")
 from vo.view_list_vo import ViewlistVO
 
-class ViewlistDao:
+class ViewlistDAO:
     def __init__(self):
         self.conn = pymysql.connect(
             host="***REMOVED***",
@@ -21,14 +21,14 @@ class ViewlistDao:
         self.conn.commit()
 
     #조회
-    def select_view_list(self, uno):
+    def select_view_list(self, id):
         sql = "select * from view_list order by 'no' desc limit 5 where id=%s"
         self.cursor.execute(sql, (id))
         result = self.cursor.fetchall()
         view_lists = []
         for view_list in result:
-            no, uno, sno = view_list
-            vo = ViewlistVO(no, uno, sno)
+            no, id, sno = view_list
+            vo = ViewlistVO(no, id, sno)
             view_lists.append(vo)
         return view_lists
             

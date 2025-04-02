@@ -3,7 +3,7 @@ import sys
 sys.path.append(".")
 from vo.review_vo import ReviewVO
 
-class ReviewDao:
+class ReviewDAO:
     def __init__(self):
         self.conn = pymysql.connect(
             host="***REMOVED***",

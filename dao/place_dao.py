@@ -3,7 +3,7 @@ import sys
 sys.path.append(".")
 from vo.place_vo import PlaceVO
 
-class PlaceDao:
+class PlaceDAO:
     def __init__(self):
         self.conn = pymysql.connect(
             host="***REMOVED***",
@@ -17,8 +17,8 @@ class PlaceDao:
 
     #검색 조회
     def search_places(self, q):
-        sql = "select * form place where title like %s" #or 지역명 like %s
-        self.cursor.execute(sql, (q))
+        sql = "select * from place where title like %s or sigungu like %s"
+        self.cursor.execute(sql, (q, q))
         result = self.cursor.fetchall()
         places = []
         for place in result:

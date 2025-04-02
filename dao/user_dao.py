@@ -33,8 +33,8 @@ class UserDAO:
         self.cursor.execute(sql, (id))
         result = self.cursor.fetchone()
         if result:
-            no, id, pw, name, email, user_type, create_date, delete_date = result
-            return UserVO(no, id, pw, name, email, user_type, create_date, delete_date)
+            id, pw, name, email, user_type, create_date, delete_date = result
+            return UserVO(id, pw, name, email, user_type, create_date, delete_date)
         else:
             return None
         

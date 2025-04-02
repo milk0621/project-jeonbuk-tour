@@ -40,8 +40,8 @@ def mypage():
         id = session.get("id")
         vo = dao.get_one_user(id)
         
-        region_dao = ViewlistDAO()
-        region_dao.select_view_list(id)
+        # region_dao = ViewlistDAO()
+        # region_dao.select_view_list(id)
         #최근본여행지 해야함
         
         return render_template("mypage.html", data=vo)
@@ -60,12 +60,12 @@ def search():
     # dao.search_places(f"%{q}%")
     return redirect(f"/board?q={q}")
 
-# @app.route(f"/board", methods=["GET"])
-# def board():
-#     search_val = request.args.get()
-#     dao = PlaceDAO()
-#     dao.search_places(f"%{q}%")
-    
+@app.route(f"/board", methods=["GET"])
+def board():
+    search_val = request.args.get()
+    dao = PlaceDAO()
+    dao.search_places(f"%{q}%")
+
 @app.route("/region")
 def region():
     dao = PlaceDAO()

@@ -60,6 +60,12 @@ def search():
     # dao.search_places(f"%{q}%")
     return redirect(f"/board?q={q}")
 
+# @app.route(f"/board", methods=["GET"])
+# def board():
+#     search_val = request.args.get()
+#     dao = PlaceDAO()
+#     dao.search_places(f"%{q}%")
+    
 @app.route("/region")
 def region():
     dao = PlaceDAO()

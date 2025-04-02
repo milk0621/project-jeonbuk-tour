@@ -46,9 +46,9 @@ def region():
     return render_template("region.html", items=vo)
 
 @app.route("/post/<int:contentid>")
-def post(no):
+def post(contentid):
     dao = PlaceDao()
-    vo = dao.get_one_place(no)
+    vo = dao.get_one_place(contentid)
     if vo:
         return render_template("post.html", data=vo)
     return redirect("/region")

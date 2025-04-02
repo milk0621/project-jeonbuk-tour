@@ -40,9 +40,9 @@ class PlaceDao:
         return places
     
     #단건 조회(post)
-    def get_one_place(self, no):
-        sql = "select * from place where no = %s"
-        self.cursor.execute(sql, (no))
+    def get_one_place(self, contentid):
+        sql = "select * from place where contentid = %s"
+        self.cursor.execute(sql, (contentid))
         result = self.cursor.fetchone()
         if result:
             contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = result

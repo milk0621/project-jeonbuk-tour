@@ -74,6 +74,10 @@ def post(contentid):
         return render_template("post.html", data=vo)
     return redirect("/region")
 
+@app.route("/favorite")
+def favorite():
+    return render_template("favorite.html")
+
 @app.route("/theme")
 def theme():
     return render_template("theme.html")

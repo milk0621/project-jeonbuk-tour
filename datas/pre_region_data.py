@@ -41,7 +41,7 @@ result["homepage"] = result["homepage"].astype(str).apply(cleanhtml)
 
 result["firstimage"] = result["firstimage"].fillna("https://cdn-icons-png.flaticon.com/512/1174/1174795.png")
 
-result["sigungu"] = result["addr1"].str[7:11]
+result["sigungu"] = result["addr1"].str[8:11]
 
 result.to_csv("./datas/pre_region_data.csv", index=False)
 #인덱스 -> DB의 no

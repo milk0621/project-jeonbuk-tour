@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, session, jsonify
 from dao.user_dao import UserDAO
 from dao.place_dao import PlaceDAO
+from vo.place_vo import PlaceVO
 from dao.view_list_dao import ViewlistDAO
 from dao.favorites_dao import FavoritesDAO
 
@@ -61,11 +62,13 @@ def board():
     result = dao.search_places(q)
     return render_template("board.html", items=result)
     
-@app.route("/region")
+@app.route("/region", methods=["GET"])
 def region():
     dao = PlaceDAO()
     id = session.get("id")
+    vals = request.args.get("region")
     vo = dao.get_all_place(id)
+            
     return render_template("region.html", items=vo)
 
 @app.route("/post/<int:contentid>")

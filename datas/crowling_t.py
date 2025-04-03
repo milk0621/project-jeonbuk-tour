@@ -28,7 +28,7 @@ time.sleep(2)
 search_box = driver.find_element(By.NAME, "q")
 #전북특별자치도 부안군 변산면 새만금로 447-27 가력도항
 #관광지이름 추출
-df = pd.read_csv("./a팀/region.csv")
+df = pd.read_csv("./datas/pre_region_data.csv")
 review_data = []
 titles = ["가력도항", "갑오 동학혁명 100주년 기념탑", "객사길", "광제정", "고창갯벌 (전북 서해안 국가지질공원)"]
 #titles = ["고창갯벌 (전북 서해안 국가지질공원)"]
@@ -58,18 +58,21 @@ for title, addr in zip(titles, addrs):
 
     time.sleep(2)
 
+    el = None
     sibling_count = None
-
     #검색결과가 두개 이상일때 첫번째 클릭
+    # #QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
     try:
         search_result = driver.find_elements(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd")
-
+        
         el = len(search_result)
+        print(el)
         if el > 0:
             #검색결과 여러개
-            key = search_result[0].find_elements(By.XPATH, "./preceding-sibling::div");
+            key = search_result[0].find_elements(By.XPATH, "./preceding-sibling::div")
             #print("검색결과 이전형제",len(key))
             el_child = len(key)
+            print(el_child)
             #부분일치 일 때 이전형제 개수 : 1
             #검색결과 나올 때 이전형제 개수 : 0
             #텍스트 없을 때 이전형제 개수 : 0
@@ -87,6 +90,8 @@ for title, addr in zip(titles, addrs):
                 review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div:nth-child(3) > div > div > button:nth-child(2)")
                 review_btn.click()
 
+                scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
+                
                 #메인메뉴 스크롤
             else :
                 print("검색결과 or no 텍스트")
@@ -101,14 +106,16 @@ for title, addr in zip(titles, addrs):
                 review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde > div:nth-child(3) > div > div > button:nth-child(2)")
                 review_btn.click()
 
-                #서브메뉴 스크롤
-            
+                scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
+                
         else :
             #검색결과 한개 or 없을때
             try:
                 review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div:nth-child(3) > div > div > button:nth-child(2)")
                 #리뷰클릭
                 review_btn.click()
+                
+                scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
 
                 #메인메뉴 스크롤
             except:
@@ -116,106 +123,65 @@ for title, addr in zip(titles, addrs):
                 print("리뷰버튼 없음 ㅋㅋ")
                 continue
 
-        #1 : 부분일치 -> 하위메뉴 없음
-        #0 : 검색결과 or 일반목록 -> 하위메뉴 있음
-        #에러 : 목록 하나
-
-        #클래스가 없는 첫번째 div 선택
-        # search_result = search_result.find_element(By.XPATH, "./div[not(@class) or @class='']")
-        
-        # siblings = search_result.find_elements(By.XPATH, "./preceding-sibling::div");
-        # #print(f"형제 개수: {len(siblings)}")
-
-        # sibling_count = len(siblings)
-
-        # #자식 선택 후 클릭
-        # search_result = search_result.find_element(By.CLASS_NAME, "hfpxzc")
-        # search_result.click()
     except Exception as e:
         print(e)
     
-    #m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
-    #m6QErb DxyBCb kA9KIf dS8AEf XiKgde ecceSd
+    time.sleep(2)
 
-    #QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
+    score = driver.find_element(By.CSS_SELECTOR, ".fontDisplayLarge").text
+    print(score)
 
-    #QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd
-#     time.sleep(2)
-#     try:
-#         review = driver.find_element(By.CSS_SELECTOR, ".hh2c6:nth-child(2)")
-#         review.click()
-#     except:
-#         continue
+    reviews = None
 
-#     time.sleep(2)
-
-#     score = driver.find_element(By.CSS_SELECTOR, ".fontDisplayLarge").text
-#     print(score)
-
-#     reviews = None
-
-#     total_reviews = driver.find_elements(By.CLASS_NAME, "jANrlb>div")[2].text
-#     total_reviews = int(re.sub(r"[^0-9\s]", "", total_reviews))
-#     time.sleep(2)
-    
-#     try:
-#         if sibling_count != None:
-#             if sibling_count == 2:
-#                 scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
-#             else:
-#                 scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
-#         else :
-#             scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
-#     except:
-#         pass
-
-#     print(scroll_el)
+    total_reviews = driver.find_elements(By.CLASS_NAME, "jANrlb>div")[2].text
+    total_reviews = int(re.sub(r"[^0-9\s]", "", total_reviews))
+    time.sleep(2)
         
-#     while True:
-#         print("while works!")
-#         reviews = driver.find_elements(By.CLASS_NAME, "jftiEf")
-#         height = driver.execute_script(f"return {scroll_el}.scrollHeight")
-#         driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
-#         time.sleep(2)
-#         new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
-#         if len(reviews) < 500:
-#             if total_reviews == len(reviews):
-#                 break
-#         else:
-#             if len(reviews) >= 500:
-#                 break
-#     #스크롤 전부 내린 후 출력
-#     for review in reviews:
+    while True:
+        print("while works!")
+        reviews = driver.find_elements(By.CLASS_NAME, "jftiEf")
+        height = driver.execute_script(f"return {scroll_el}.scrollHeight")
+        driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
+        time.sleep(2)
+        new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
+        if len(reviews) < 5:
+            if total_reviews == len(reviews):
+                break
+        else:
+            if len(reviews) >= 5:
+                break
+    #스크롤 전부 내린 후 출력
+    for review in reviews:
         
-#         try:
-#             button_box = review.find_element(By.CLASS_NAME, "MyEned")
-#             if button_box and len(button_box.find_elements(By.TAG_NAME, "span")) >= 2:
-#                 button = review.find_element(By.CLASS_NAME, "kyuRq")
-#                 button.click()
-#             else:
-#                 pass
-#         except:
-#             pass
+        try:
+            button_box = review.find_element(By.CLASS_NAME, "MyEned")
+            if button_box and len(button_box.find_elements(By.TAG_NAME, "span")) >= 2:
+                button = review.find_element(By.CLASS_NAME, "kyuRq")
+                button.click()
+            else:
+                pass
+        except:
+            pass
 
-#         time.sleep(2)
+        time.sleep(2)
 
-#         name = review.find_element(By.CLASS_NAME, "d4r55").text.strip()
-#         try:
-#             content = review.find_element(By.CLASS_NAME, "wiI7pd").text.strip()
-#         except:
-#             content = ""
-#         star = len(review.find_elements(By.CLASS_NAME, "elGi1d"))
+        name = review.find_element(By.CLASS_NAME, "d4r55").text.strip()
+        try:
+            content = review.find_element(By.CLASS_NAME, "wiI7pd").text.strip()
+        except:
+            content = ""
+        star = len(review.find_elements(By.CLASS_NAME, "elGi1d"))
 
-#         dict = {
-#             "관광지이름" : title,
-#             "총점" : score,
-#             "이름" : name,
-#             "내용" : content,
-#             "별점" : star
-#         }
-#         review_data.append(dict)
+        dict = {
+            "관광지이름" : title,
+            "총점" : score,
+            "이름" : name,
+            "내용" : content,
+            "별점" : star
+        }
+        review_data.append(dict)
     
-# df = pd.DataFrame(review_data)
-# df.to_csv("review_data.csv", index=False, encoding="utf-8")
+df = pd.DataFrame(review_data)
+df.to_csv("review_data.csv", index=False, encoding="utf-8")
 
-# driver.quit()
+driver.quit()

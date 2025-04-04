@@ -49,7 +49,7 @@ addrs = df["addr1"]
 #3. 
 
 
-for title, addr in zip(titles[169:], addrs[169:]):
+for title, addr in zip(titles[269:], addrs[269:]):
     
     time.sleep(2)
     driver.get("https://www.google.co.kr/maps/")
@@ -93,6 +93,8 @@ for title, addr in zip(titles[169:], addrs[169:]):
                     #리뷰클릭
                     time.sleep(2)
                     review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div:nth-child(3) > div > div > button:nth-child(2)")
+                    if "리뷰" not in review_btn.get_attribute("innerText"):
+                        continue
                     review_btn.click()
 
                     scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
@@ -113,6 +115,8 @@ for title, addr in zip(titles[169:], addrs[169:]):
                 time.sleep(2)
                 try:
                     review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde > div:nth-child(3) > div > div > button:nth-child(2)")
+                    if "리뷰" not in review_btn.get_attribute("innerText"):
+                        continue
                     review_btn.click()
 
                     scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'

@@ -11,56 +11,58 @@
     <div class="wrap">
         <h1>지역별 인기 여행지</h1>
         <p>전북의 여행지를 한눈에!</p>
-        <div class="region">
-            <div>
-                <div class="check_form">
-                    <input type="checkbox" id="check1" name="region" value="">
-                    <label for="check1">#전주</label>
+        <form action="/region" method="get" id="regionForm">
+            <div class="region">
+                <div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check1" name="region" value="전주시">
+                        <label for="check1">#전주</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check2" name="region" value="군산시">
+                        <label for="check2">#군산</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check3" name="region" value="정읍시">
+                        <label for="check3">#정읍</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check4" name="region" value="익산시">
+                        <label for="check4">#익산</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check5" name="region" value="김제시">
+                        <label for="check5">#김제</label>
+                    </div>
                 </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check2" name="region" value="">
-                    <label for="check2">#군산</label>
-                </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check3" name="region" value="">
-                    <label for="check3">#정읍</label>
-                </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check4" name="region" value="">
-                    <label for="check4">#익산</label>
-                </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check5" name="region" value="">
-                    <label for="check5">#김제</label>
+                <div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check6" name="region" value="남원시">
+                        <label for="check6">#남원</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check7" name="region" value="임실군">
+                        <label for="check7">#임실</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check8" name="region" value="순창시">
+                        <label for="check8">#순창</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check9" name="region" value="부안군">
+                        <label for="check9">#부안</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check10" name="region" value="고창군">
+                        <label for="check10">#고창</label>
+                    </div>
+                    <div class="check_form">
+                        <input type="checkbox" id="check11" name="region" value="기타">
+                        <label for="check11">#무주/진안/장수</label>
+                    </div>
                 </div>
             </div>
-            <div>
-                <div class="check_form">
-                    <input type="checkbox" id="check6" name="region" value="">
-                    <label for="check6">#남원</label>
-                </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check7" name="region" value="">
-                    <label for="check7">#임실</label>
-                </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check8" name="region" value="">
-                    <label for="check8">#순창</label>
-                </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check9" name="region" value="">
-                    <label for="check9">#부안</label>
-                </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check10" name="region" value="">
-                    <label for="check10">#고창</label>
-                </div>
-                <div class="check_form">
-                    <input type="checkbox" id="check11" name="region" value="">
-                    <label for="check11">#무주/진안/장수</label>
-                </div>
-            </div>
-        </div>
+        </form>
         <div class="content-box">
             {% for item in items %}
             <div class="content">
@@ -91,6 +93,16 @@
     </div>
 </body>
 <script>
+    $('input[name="region"]').change(function() {
+        let selectedRegions = [];
+        $('input[name="region"]:checked').each(function() {
+            selectedRegions.push($(this).val());
+        });
+        console.log(selectedRegions)
+
+        $("#regionForm").submit();
+    });
+
     function favorite(favorite, e){
         var check = $('#'+favorite).is(':checked');
         console.log(check)

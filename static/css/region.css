@@ -37,6 +37,12 @@
     background-color: #000;
     color: #fff;
 }
+.concon {
+    display: -webkit-box;
+    /* webkit-box로 표시된 자식 요소들의 배치 방법 결정 (여기서는 수직) */ 
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+}
 .content-box{
     display: flex;
     flex-wrap: wrap;

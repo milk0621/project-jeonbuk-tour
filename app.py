@@ -61,15 +61,28 @@ def board():
     dao = PlaceDAO()
     result = dao.search_places(q)
     return render_template("board.html", items=result)
+
+@app.route("/region_plus", methods=["GET"])
+def region_plus():
+    id = session.get("id")
+    page = request.args.get("page")
+    regions = request.args.get("region")
+    val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
+    dao = PlaceDAO()
+    result = dao.get_all_place(id, val, page)
+    print(page)
+    response = jsonify(result=result)
+    return response
     
 @app.route("/region", methods=["GET"])
 def region():
     dao = PlaceDAO()
     id = session.get("id")
-    vals = request.args.get("region")
-    vo = dao.get_all_place(id)
-            
-    return render_template("region.html", items=vo)
+    page = 0
+    regions = request.args.getlist("region")
+    val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
+    vo = dao.get_all_place(id, val, page)
+    return render_template("region.html", items=vo, regions=regions)
 
 @app.route("/post/<int:contentid>")
 def post(contentid):

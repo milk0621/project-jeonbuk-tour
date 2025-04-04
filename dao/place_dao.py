@@ -28,13 +28,24 @@ class PlaceDAO:
         return places
 
     #목록 조회
-    def get_all_place(self, id):
+    def get_all_place(self, id, regions=None, page=0):
+        
         if id :
             sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid"
-            self.cursor.execute(sql + " limit 5", (id))
+            if regions:
+                if "기타" in regions:
+                    sql += f" where sigungu in('무주군', '진안군', '장수군', {regions})"
+                else:
+                    sql += f" where sigungu in({regions})"
+            sql += f" limit {page}, 12"
+            # sql += " order..."
+            self.cursor.execute(sql, (id))
         else:
             sql = "select *, 'False' as checked from place"
-            self.cursor.execute(sql + " limit 5")
+            if regions:
+                sql += f" where sigungu in({regions})"
+            sql += f" limit {page}, 12"
+            self.cursor.execute(sql)
 
         result = self.cursor.fetchall()
         places = []
@@ -55,16 +66,3 @@ class PlaceDAO:
             return PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
         else:
             return None
-
-    #시군구 조회
-    # def get_all_sigungu(self, sigungu):
-    #     sql = "select * from place limit 5 where sigungu = %s"
-    #     self.cursor.execute(sql)
-    #     result = self.cursor.fetchall()
-        
-    #     if result:
-    #         contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = result
-    #         return PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
-    #     else:
-    #         return None
-        

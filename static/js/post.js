@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    const text = $('.text');
-    const moreText = $('.more-text');
-    const lessText = $('.less-text');
+    let text = $('.text');
+    let moreText = $('.more-text');
+    let lessText = $('.less-text');
 
     // 더보기 클릭 이벤트
     moreText.on('click', function() {

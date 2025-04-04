@@ -30,11 +30,11 @@ search_box = driver.find_element(By.NAME, "q")
 #관광지이름 추출
 df = pd.read_csv("./datas/pre_region_data.csv")
 review_data = []
-titles = ["가력도항", "갑오 동학혁명 100주년 기념탑", "객사길", "광제정", "고창갯벌 (전북 서해안 국가지질공원)"]
-#titles = ["고창갯벌 (전북 서해안 국가지질공원)"]
+titles = df["title"]
+# titles = ["관음사(무주)"]
 
-addrs = ["전북특별자치도 부안군 변산면 새만금로 447-27", "전북특별자치도 정읍시 내장호반로 214", "전북특별자치도 전주시 완산구 중앙동2가 10-1", "전북특별자치도 임실군 삼계면 세심길 82", "전북특별자치도 고창군 심원면 만돌리"]
-#addrs = ["전북특별자치도 고창군 심원면 만돌리"]
+addrs = df["addr1"]
+# addrs = ["전북특별자치도 무주군 설천면 양지길 92-38"]
 
 #케이스
 #1. 결과 여러개
@@ -43,20 +43,24 @@ addrs = ["전북특별자치도 부안군 변산면 새만금로 447-27", "전�
 #1-3. 텍스트 표출 없음 -> 클릭하면 서브메뉴에 스크롤 ->고창갯벌 (전북 서해안 국가지질공원)
 
 #2. 결과 한개
-#2-1. 리뷰버튼 있음 -> 클릭하면 메인메뉴에 스크롤 -> 갑오 동학혁명 100주년 기념탑
+#2-1. 리뷰버튼 있음 -> 클릭하면 메인메뉴에 스크롤 -> 갑오동학혁명 100주년 기념탑
 #2-2. 리뷰버튼 없음 -> 건너뛰기 -> 광제정
 
 #3. 
 
 
-for title, addr in zip(titles, addrs):
+for title, addr in zip(titles[169:], addrs[169:]):
+    
+    time.sleep(2)
+    driver.get("https://www.google.co.kr/maps/")
+    search_box = driver.find_element(By.NAME, "q")
 
     #검색어 입력 후 엔터
     search_box.clear()
-    search_box.send_keys(addr+ title)
+    search_box.send_keys(addr + " " + title)
     search_box.send_keys(Keys.RETURN)
 
-    time.sleep(2)
+    time.sleep(3.5)
 
     el = None
     sibling_count = None
@@ -85,13 +89,17 @@ for title, addr in zip(titles, addrs):
                 else:
                     main_menu[0].click()
                 
-                #리뷰클릭
-                time.sleep(2)
-                review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div:nth-child(3) > div > div > button:nth-child(2)")
-                review_btn.click()
+                try:
+                    #리뷰클릭
+                    time.sleep(2)
+                    review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div:nth-child(3) > div > div > button:nth-child(2)")
+                    review_btn.click()
 
-                scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
-                
+                    scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
+                except:
+                    print("리뷰없음 ㅋ")
+                    continue
+
                 #메인메뉴 스크롤
             else :
                 print("검색결과 or no 텍스트")
@@ -103,24 +111,30 @@ for title, addr in zip(titles, addrs):
                     main_menu[0].click()
                 #리뷰클릭
                 time.sleep(2)
-                review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde > div:nth-child(3) > div > div > button:nth-child(2)")
-                review_btn.click()
+                try:
+                    review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde > div:nth-child(3) > div > div > button:nth-child(2)")
+                    review_btn.click()
 
-                scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
-                
+                    scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div.bJzME.Hu9e2e.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
+                except:
+                    print("리뷰없음 ㅋㅋ")
+                    continue
+
         else :
             #검색결과 한개 or 없을때
             try:
                 review_btn = driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div:nth-child(3) > div > div > button:nth-child(2)")
-                #리뷰클릭
+                if "리뷰" not in review_btn.get_attribute("innerText"):
+                    continue
                 review_btn.click()
+                #리뷰클릭
                 
                 scroll_el = 'document.querySelector("#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde")'
 
                 #메인메뉴 스크롤
             except:
                 #리뷰버튼 없음
-                print("리뷰버튼 없음 ㅋㅋ")
+                print("리뷰버튼 없음 ㅋㅋㅋ")
                 continue
 
     except Exception as e:
@@ -133,8 +147,8 @@ for title, addr in zip(titles, addrs):
 
     reviews = None
 
-    total_reviews = driver.find_elements(By.CLASS_NAME, "jANrlb>div")[2].text
-    total_reviews = int(re.sub(r"[^0-9\s]", "", total_reviews))
+    # total_reviews = driver.find_elements(By.CLASS_NAME, "jANrlb>div")[2].text
+    # total_reviews = int(re.sub(r"[^0-9\s]", "", total_reviews))
     time.sleep(2)
         
     while True:
@@ -144,12 +158,16 @@ for title, addr in zip(titles, addrs):
         driver.execute_script(f"{scroll_el}.scrollTo(0, {scroll_el}.scrollHeight)")
         time.sleep(2)
         new_heigth = driver.execute_script(f"return {scroll_el}.scrollHeight")
-        if len(reviews) < 5:
+
+        total_reviews = len(driver.find_elements(By.CLASS_NAME, "jftiEf"))
+        time.sleep(2)
+        print(len(reviews))
+        if len(reviews) < 20:
             if total_reviews == len(reviews):
                 break
-        else:
-            if len(reviews) >= 5:
-                break
+        elif len(reviews) >= 20:
+            break
+
     #스크롤 전부 내린 후 출력
     for review in reviews:
         

@@ -4,6 +4,7 @@ from dao.place_dao import PlaceDAO
 from vo.place_vo import PlaceVO
 from dao.view_list_dao import ViewlistDAO
 from dao.favorites_dao import FavoritesDAO
+from dao.similar_dao import SimilarDAO
 
 app = Flask(__name__)
 app.secret_key = "***REMOVED***"
@@ -88,8 +89,10 @@ def region():
 def post(contentid):
     dao = PlaceDAO()
     vo = dao.get_one_place(contentid)
-    if vo:
-        return render_template("post.html", data=vo)
+    dao = SimilarDAO()
+    svo = dao.select_similar(contentid)
+    if vo or svo:
+        return render_template("post.html", data=vo, similars=svo)
     return redirect("/region")
 
 @app.route("/favorite")

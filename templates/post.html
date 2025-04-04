@@ -54,13 +54,14 @@
             </div>
             <a href="/review">리뷰 더보기 -></a>
         </div>
+        <h2>유사 관광지 추천</h2>
         <div class="recommend">
-            {% %}
-            <div class="re-con" onclick="location.href='/post/{{data.contentid}}'">
-                <img src="{{data.firstimage}}" alt="">
-                <p>{{data.title}}</p>
-            </div>
-            
+            {% for similar in similars %}
+                <div class="re-con" onclick="location.href='/post/{{similar.contentid}}'">
+                    <img src="{{similar.firstimage}}" alt="">
+                    <p>{{similar.title}}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </body>

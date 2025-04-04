@@ -69,6 +69,16 @@ p {
     display: block;
     text-align: right;
 }
+.wrap > h2 {
+    margin: 50px 0 10px 0;
+}
+.recommend {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
 .re-con {
     width: 300px;
     cursor: pointer;

@@ -15,7 +15,7 @@
         </div>
         <div class="recommend">
             <div class="content-box">
-                {% for item in items %}
+                <!-- {% for item in items %}
                     <div class="content">
                         <div class="checkbox_box">
                             <input type="checkbox" id="{{item.contentid}}" name="favorite">
@@ -28,7 +28,7 @@
                             <p>#한옥 #전통문화</p>
                         </div>
                     </div>
-                {% endfor %}
+                {% endfor %} -->
             </div>
         </div>
         <div class="favorites-txt">
@@ -36,20 +36,34 @@
             <hr>
         </div>
         <div class="favorites">
-            {% for item in items %}
-                <div class="content">
-                    <div class="checkbox_box">
-                        <input type="checkbox" id="{{item.contentid}}" name="favorite">
-                        <label for="{{item.contentid}}"></label>
+            <div class="concon">
+                <div class="content-box">
+                    {% for item in items %}
+                    <div class="content">
+                        {% if session["id"] %}
+                            <div class="checkbox_box">
+                                <label for="{{item.contentid}}">
+                                    {% if item.checked == 'FALSE' %}
+                                        <input type="checkbox" onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
+                                        
+                                        <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite.png')}}" alt="0">
+                                    {% else %}
+                                        <input type="checkbox" checked onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
+                                        <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite_check.png')}}" alt="1">
+                                    {% endif %}
+                                </label>
+                            </div>
+                        {% endif %}
+                        <img src="{{item.firstimage}}" alt="">
+                        <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
+                            <h3>{{item.title}}</h5>
+                            <p>{{item.sigungu}}</p>
+                            <p>#한옥 #전통문화</p>
+                        </div>
                     </div>
-                    <img src="{{item.firstimage}}" alt="">
-                    <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
-                        <h3>{{item.title}}</h5>
-                        <p>{{item.sigungu}}</p>
-                        <p>#한옥 #전통문화</p>
-                    </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
 </body>

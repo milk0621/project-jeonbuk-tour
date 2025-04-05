@@ -31,6 +31,8 @@ class FavoritesDAO:
     #조회
     def selecte_favorite(self, id):
         sql = "select * from favorites where id = %s"
+        #select * from favorites f left join place p on f.contentid = p.contentid where f.id = 'hong';
+        
         self.cursor.execute(sql, (id))
         result = self.cursor.fetchall()
         favorites = []

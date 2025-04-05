@@ -95,8 +95,10 @@ def post(contentid):
         return render_template("post.html", data=vo, similars=svo)
     return redirect("/region")
 
-@app.route("/favorite")
+@app.route("/favorite", methods=["GET"])
 def favorite():
+    dao = PlaceDAO()
+    id = session.get("id")
     return render_template("favorite.html")
 
 @app.route("/theme")

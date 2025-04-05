@@ -10,19 +10,56 @@
     {%include "header.html"%}
     <div class="wrap">
         <h1>검색결과</h1>
-        <div class="content-box">
-            {% for item in items %}
-                <div class="content" onclick="location.href='/post/{{item.contentid}}'">
+        <div class="concon">
+            <div class="content-box">
+                {% for item in items %}
+                <div class="content">
+                    {% if session["id"] %}
+                        <div class="checkbox_box">
+                            <label for="{{item.contentid}}">
+                                {% if item.checked == 'FALSE' %}
+                                    <input type="checkbox" onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
+                                    
+                                    <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite.png')}}" alt="0">
+                                {% else %}
+                                    <input type="checkbox" checked onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
+                                    <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite_check.png')}}" alt="1">
+                                {% endif %}
+                            </label>
+                        </div>
+                    {% endif %}
                     <img src="{{item.firstimage}}" alt="">
-                    <div class="txt">
+                    <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
                         <h3>{{item.title}}</h5>
                         <p>{{item.sigungu}}</p>
                         <p>#한옥 #전통문화</p>
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-        <button>+더보기</button>
+        <button id="plus">+더보기</button>
     </div>
 </body>
+<script>
+    $("#plus").click(function(){
+        let page = $(".content").length + 10;
+        let region 
+        console.log(page)
+        $.ajax({
+            type : "post",
+            url : "/region_plus",
+            data : {
+                "page" : page,
+                "region" : region
+            },
+            success : function(result){
+                console.log(result)
+            },
+            error : function(result){
+                console.log("에러발생")
+            }
+        });
+    });
+</script>
 </html>

@@ -80,10 +80,11 @@ p {
     margin-bottom: 50px;
 }
 .re-con {
-    width: 300px;
+    width: 310px;
     cursor: pointer;
 }
 .recommend img {
     width: 100%;
+    height: 210px;
     object-fit: cover;
 }

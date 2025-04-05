@@ -49,7 +49,7 @@ addrs = df["addr1"]
 #3. 
 
 
-for title, addr in zip(titles[269:], addrs[269:]):
+for title, addr in zip(titles[:300], addrs[:300]):
     
     time.sleep(2)
     driver.get("https://www.google.co.kr/maps/")
@@ -166,10 +166,10 @@ for title, addr in zip(titles[269:], addrs[269:]):
         total_reviews = len(driver.find_elements(By.CLASS_NAME, "jftiEf"))
         time.sleep(2)
         print(len(reviews))
-        if len(reviews) < 20:
+        if len(reviews) < 300:
             if total_reviews == len(reviews):
                 break
-        elif len(reviews) >= 20:
+        elif len(reviews) >= 300:
             break
 
     #스크롤 전부 내린 후 출력

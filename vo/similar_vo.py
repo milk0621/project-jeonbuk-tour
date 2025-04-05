@@ -1,5 +1,5 @@
 class SimilerVO:
-    def __init__(self, no, sno, similar):
-        self.no = no
-        self.sno = sno
-        self.similar = similar
+    def __init__(self, contentid, title, firstimage):
+        self.contentid = contentid
+        self.title = title
+        self.firstimage = firstimage

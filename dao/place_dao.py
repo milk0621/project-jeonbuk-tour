@@ -37,14 +37,14 @@ class PlaceDAO:
                     sql += f" where sigungu in('무주군', '진안군', '장수군', {regions})"
                 else:
                     sql += f" where sigungu in({regions})"
-            sql += f" limit {page}, 12"
+            sql += f" limit {page}, 10"
             # sql += " order..."
             self.cursor.execute(sql, (id))
         else:
             sql = "select *, 'False' as checked from place"
             if regions:
                 sql += f" where sigungu in({regions})"
-            sql += f" limit {page}, 12"
+            sql += f" limit {page}, 10"
             self.cursor.execute(sql)
 
         result = self.cursor.fetchall()

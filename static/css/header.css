@@ -83,6 +83,7 @@ header {
 #login-btn, #mypage, #logout-btn {
     font-size: 1.4rem;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .modal {

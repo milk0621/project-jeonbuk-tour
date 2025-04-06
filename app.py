@@ -76,7 +76,7 @@ def region_plus():
     print(val)
     dao = PlaceDAO()
     result = dao.get_all_place(id, val, page)
-
+    
     result_dict = []
     for vo in result:
         result_dict.append(vo.to_dict())

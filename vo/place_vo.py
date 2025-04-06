@@ -13,3 +13,22 @@ class PlaceVO:
         self.title = title
         self.sigungu = sigungu
         self.checked = checked
+
+    #리스트 형식의 배열을 딕셔너리 형식으로 변환
+    #Flask의 jsonify() 함수는 dict, list, str, int 등 JSON으로 직렬화할 수 있는 기본 타입만 받기 때문에 PlaceVO와 같은 사용자 정의 클래스는 에러가 발생.
+    def to_dict(self):
+        return {
+            "contentid": self.contentid,
+            "overview": self.overview,
+            "homepage": self.homepage,
+            "addr1": self.addr1,
+            "cat1": self.cat1,
+            "cat2": self.cat2,
+            "cat3": self.cat3,
+            "firstimage": self.firstimage,
+            "mapx": self.mapx,
+            "mapy": self.mapy,
+            "title": self.title,
+            "sigungu": self.sigungu,
+            "checked": self.checked
+        }

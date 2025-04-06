@@ -67,13 +67,21 @@ def board():
 def region_plus():
     id = session.get("id")
     page = request.args.get("page")
-    regions = request.args.get("region")
+    regions = request.args.getlist("region")
+
+    if not regions:
+        regions = []
+
     val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
+    print(val)
     dao = PlaceDAO()
     result = dao.get_all_place(id, val, page)
-    print(page)
-    response = jsonify(result=result)
-    return response
+
+    result_dict = []
+    for vo in result:
+        result_dict.append(vo.to_dict())
+        #PlaceVO 객체를 to_dict()를 통해 JSON으로 전송
+    return jsonify(result=result_dict)
     
 @app.route("/region", methods=["GET"])
 def region():

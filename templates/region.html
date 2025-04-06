@@ -104,17 +104,23 @@
     
     $("#plus").click(function(){
         let page = $(".content").length + 10;
-        let region 
-        console.log(page)
+        let region = [];
+
+        $('input[name="region"]:checked').each(function() {
+            region.push($(this).val());
+        });
+
         $.ajax({
-            type : "post",
+            type : "get",
             url : "/region_plus",
             data : {
                 "page" : page,
                 "region" : region
             },
+            traditional: true, //화면에서 서버로 배열을 넘길때 사용
             success : function(result){
                 console.log(result)
+                //성공시 화면 HTML 추가..
             },
             error : function(result){
                 console.log("에러발생")

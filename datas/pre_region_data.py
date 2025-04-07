@@ -16,7 +16,7 @@ region_df.drop(columns="addr2", inplace=True)
 region_df.drop(columns="mlevel", inplace=True)
 region_df.drop(columns="firstimage2", inplace=True)
 
-region_post = pd.read_csv("./datas/tour_details.csv")
+region_post = pd.read_csv("./datas/csv/tour_details.csv")
 
 region_post.drop(columns="tel", inplace=True)
 region_post.drop(columns="zipcode", inplace=True)
@@ -43,5 +43,5 @@ result["firstimage"] = result["firstimage"].fillna("https://cdn-icons-png.flatic
 
 result["sigungu"] = result["addr1"].str[8:11]
 
-result.to_csv("./datas/pre_region_data.csv", index=False)
+result.to_csv("./datas/csv/pre_region_data.csv", index=False)
 #인덱스 -> DB의 no

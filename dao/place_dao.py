@@ -92,18 +92,23 @@ class PlaceDAO:
             places.append(vo)
         return places
     
-    # #지역별 관광지 갯수 조회
-    # def get_count(self, regions=None, theme=None):
-    #     #region, theme
-    #     sql = "select count(*) as cnt from place"
-    #     if regions:
-    #         sql += "where sigungu = %s"
-    #     if theme:
-    #         sql += "where cat2 = %s"
-    #     self.cursor.execute(sql, (regions, theme))
-    #     result = self.cursor.fetchall()
-    #     return result
+    #지역별 관광지 갯수 조회
+    def get_count(self, regions=None):
+        #region, theme
+        sql = "select count(*) as cnt from place"
+        if regions:
+            sql += f" where sigungu in({regions})"
+        self.cursor.execute(sql)
+        result = self.cursor.fetchone()
+        return result
         
-        
+    #테맙려 관광지 갯수 조회
+    def get_count(self, theme=None):
+        sql = "select count(*) as cnt from place"
+        if theme:
+            sql += f" where sigungu in({theme})"
+        self.cursor.execute(sql)
+        result = self.cursor.fetchone()
+        return result
         
     

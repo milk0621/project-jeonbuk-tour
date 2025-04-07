@@ -68,7 +68,6 @@ def region_plus():
     id = session.get("id")
     page = request.args.get("page")
     regions = request.args.getlist("region")
-    cat = request.args.getlist("cat")
     
     if not regions:
         regions = []
@@ -76,7 +75,7 @@ def region_plus():
     val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
     print(val)
     dao = PlaceDAO()
-    result = dao.get_all_place(id, val, page, cat)
+    result = dao.get_all_place(id, val, page)
     
     result_dict = []
     for vo in result:
@@ -88,21 +87,20 @@ def region_plus():
 def region():
     dao = PlaceDAO()
     id = session.get("id")
-    page = 0
     regions = request.args.getlist("region")
     val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
-    vo = dao.get_all_place(id, val, page)
-    return render_template("region.html", items=vo, regions=regions)
+    vo = dao.get_all_place(id, val)
+    cnt = dao.get_count(val)
+    return render_template("region.html", items=vo, regions=regions, count=cnt[0])
 
 
 @app.route("/theme", methods=["GET"])
 def theme():
     dao = PlaceDAO()
     id = session.get("id")
-    page = 0
     cats = request.args.getlist("cat")
     cat = ", ".join(list(map(lambda x : f"\'{x}\'", cats)))
-    vo = dao.get_theme_place(id, cat, page)
+    vo = dao.get_theme_place(id, cat)
     return render_template("theme.html", items=vo, cats=cats)
 
 @app.route("/post/<int:contentid>")

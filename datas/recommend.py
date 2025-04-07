@@ -5,18 +5,25 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 df = pd.read_csv("./datas/pre_region_data.csv")
+df2 = pd.read_csv("./datas/review_groub.csv")
 
-# print(df.loc[0, "title"])
+result = pd.merge(df, df2, how='left', on='title')
+# print(result.head())
 
-title = df["title"]
-content = df["overview"]
-contentid = df["contentid"]
+title = result["title"]
+content = result["overview"]
+contentid = result["contentid"]
 
-cat1 = df["cat1"]
-cat2 = df["cat2"]
-cat3 = df["cat3"]
+cat1 = result["cat1"]
+cat2 = result["cat2"]
+cat3 = result["cat3"]
 
-df["total"] = title + " " + content + " " + cat1.astype(str) + " " + cat2.astype(str) + " " + cat3.astype(str)
+review = result["review"]
+
+result["total"] = title + " " + content + " " + cat1.astype(str) + " " + cat2.astype(str) + " " + cat3.astype(str) + " " + review.astype(str)
+
+print(result["total"].head())
+
 
 stop = pd.read_csv("./datas/stopwords.txt")
 # print(df["total"])
@@ -29,6 +36,8 @@ def clean_text(text):
   #한글, 숫자만 남기고 나머지 제거
   text = re.sub(r"[^ㄱ-ㅎ가-힣0-9a-zA-Z\s]", " ", text)
   #ㄱ-ㅎ가-힣0-9를 제외한 나머지 모든 문자를 " "띄어쓰기로 치환
+
+  text = text.replace("\r", " ").replace("\n", " ")
   
   #띄어쓰기가 두개 이상인경우 하나로 치환
   text = re.sub(r"\s+", " ", text)
@@ -50,13 +59,13 @@ def clean_text(text):
 
   return " ".join(tokens)
 
-df["total"] = df["total"].apply(clean_text)
+result["total"] = result["total"].apply(clean_text)
 
-# print(df["total"])
+print(result.head())
 
 vectorizer = TfidfVectorizer(stop_words="english")
 
-tour_vec = vectorizer.fit_transform(df["total"])
+tour_vec = vectorizer.fit_transform(result["total"])
 
 # print(vectorizer.get_feature_names_out())
 
@@ -93,12 +102,12 @@ for idx, sim_row in enumerate(sim_matrix):
     # print(df.loc[i, "title"], sim_row[i]) #가력도항 비슷한 궁항, 선유1구항, 야미도선착장
     
     recommend_region.append({
-        "contentid1" : df.loc[idx, "contentid"], 
-        "contentid2" : df.loc[i, "contentid"],
+        "contentid1" : result.loc[idx, "contentid"], 
+        "contentid2" : result.loc[i, "contentid"],
         "sim" : sim_row[i]
         }
     )
     
 df2= pd.DataFrame(recommend_region)
     
-df2.to_csv("./datas/recommend_region.csv", index=False)
+df2.to_csv("./datas/recommend_region2.csv", index=False)

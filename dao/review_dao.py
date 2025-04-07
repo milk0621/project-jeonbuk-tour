@@ -24,6 +24,10 @@ class ReviewDAO:
             contentid, total_score, name, review, score = review
             vo = ReviewVO(contentid, total_score, name, review, score)
             reviews.append(vo)
-        return reviews
+
+        if result:
+            return reviews
+        else:
+            return None
     
-    
+

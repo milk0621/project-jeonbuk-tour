@@ -149,10 +149,13 @@ def post(contentid):
     
     pdao = PlaceDAO()
     vo = pdao.get_one_place(contentid)
+    
     sdao = SimilarDAO()
     svo = sdao.select_similar(contentid)
+    
     rdao = ReviewDAO()
     rvo = rdao.select_review(contentid)
+    print(rvo)
 
     if vo or svo or rvo:
         return render_template("post.html", data=vo, similars=svo, reviews=rvo)

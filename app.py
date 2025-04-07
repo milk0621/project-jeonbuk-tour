@@ -63,6 +63,16 @@ def board():
     result = dao.search_places(q)
     return render_template("board.html", items=result)
 
+@app.route("/region", methods=["GET"])
+def region():
+    dao = PlaceDAO()
+    id = session.get("id")
+    regions = request.args.getlist("region")
+    val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
+    vo = dao.get_all_place(id, val)
+    cnt = dao.get_count_region(val)
+    return render_template("region.html", items=vo, regions=regions, count=cnt[0])
+
 @app.route("/region_plus", methods=["GET"])
 def region_plus():
     id = session.get("id")
@@ -82,26 +92,35 @@ def region_plus():
         result_dict.append(vo.to_dict())
         #PlaceVO 객체를 to_dict()를 통해 JSON으로 전송
     return jsonify(result=result_dict)
-    
-@app.route("/region", methods=["GET"])
-def region():
-    dao = PlaceDAO()
-    id = session.get("id")
-    regions = request.args.getlist("region")
-    val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
-    vo = dao.get_all_place(id, val)
-    cnt = dao.get_count(val)
-    return render_template("region.html", items=vo, regions=regions, count=cnt[0])
-
 
 @app.route("/theme", methods=["GET"])
 def theme():
     dao = PlaceDAO()
     id = session.get("id")
     cats = request.args.getlist("cat")
-    cat = ", ".join(list(map(lambda x : f"\'{x}\'", cats)))
-    vo = dao.get_theme_place(id, cat)
-    return render_template("theme.html", items=vo, cats=cats)
+    val = ", ".join(list(map(lambda x : f"\'{x}\'", cats)))
+    vo = dao.get_theme_place(id, val)
+    cnt = dao.get_count_theme(val)
+    return render_template("theme.html", items=vo, cats=cats, count=cnt[0])
+
+@app.route("/cat_plus", methods=["GET"])
+def cat_plus():
+    id = session.get("id")
+    page = request.args.get("page")
+    cats = request.args.getlist("cat")
+    
+    if not cats:
+        cats = []
+
+    val = ", ".join(list(map(lambda x : f"\'{x}\'", cats)))
+    dao = PlaceDAO()
+    result = dao.get_theme_place(id, val, page)
+    
+    result_dict = []
+    for vo in result:
+        result_dict.append(vo.to_dict())
+        #PlaceVO 객체를 to_dict()를 통해 JSON으로 전송
+    return jsonify(result=result_dict)
 
 @app.route("/post/<int:contentid>")
 def post(contentid):

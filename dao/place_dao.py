@@ -93,7 +93,7 @@ class PlaceDAO:
         return places
     
     #지역별 관광지 갯수 조회
-    def get_count(self, regions=None):
+    def get_count_region(self, regions=None):
         #region, theme
         sql = "select count(*) as cnt from place"
         if regions:
@@ -103,7 +103,7 @@ class PlaceDAO:
         return result
         
     #테맙려 관광지 갯수 조회
-    def get_count(self, theme=None):
+    def get_count_theme(self, theme=None):
         sql = "select count(*) as cnt from place"
         if theme:
             sql += f" where sigungu in({theme})"

@@ -97,7 +97,17 @@
 <script>
     let count = "{{count}}"
 
-    
+    const code = {
+        "A0101" : "자연관광지",
+        "A0102" : "관광자원",
+        "A0201" : "역사관광지",
+        "A0202" : "휴양관광지",
+        "A0203" : "체험관광지",
+        "A0204" : "산업관광지",
+        "A0205" : "건축/조형물"
+    }
+
+    let startCount = 0
 
     $('input[name="cat"]').change(function() {
         $('input[name="cat"]:checked').each(function() {
@@ -107,24 +117,59 @@
     })
     
     $("#plus").click(function(){
-        let page = $(".content").length + 10;
+        startCount += 10
+        if(startCount >= count){
+            startCount -= 10
+            return;
+        }
         let cat = [];
 
         $('input[name="cat"]:checked').each(function() {
             cat.push($(this).val());
         });
 
+        let favoriteFillImgSrc = "{{url_for('static', filename='./img/favorite_check.png')}}"
+        let favoriteUnFillImgSrc = "{{url_for('static', filename='./img/favorite.png')}}"
+
         $.ajax({
             type : "get",
-            url : "/region_plus",
+            url : "/cat_plus",
             data : {
-                "page" : page,
+                "page" : startCount,
                 "cat" : cat
             },
             traditional: true, //화면에서 서버로 배열을 넘길때 사용
-            success : function(result){
-                console.log(result)
+            success : function(datas){
+                console.log(datas)
                 //성공시 화면 HTML 추가..
+
+                let html = "";
+                for(let i = 0; i < datas.result.length; i++){
+                    let data = datas.result[i];
+                
+                    html += '<div class="content">';
+                    html +=     '<div class="checkbox_box">'
+                    html +=         '<label for="'+data.contentid+'">'
+                    html +=             '<input type="checkbox" onclick="favorite('+data.contentid+', this)" id="'+data.contentid+'" name="'+data.contentid+'">'
+                    if(data.checked == "TRUE"){
+                        html +=             '<img id="img_'+data.contentid+'" src="'+favoriteFillImgSrc+'" alt="">'
+                    }else{
+                        html +=             '<img id="img_'+data.contentid+'" src="'+favoriteUnFillImgSrc+'" alt="">'
+                    }
+                    html +=         '</label>'
+                    html +=     '</div>'
+                    html +=     '<img src="'+data.firstimage+'" alt="">'
+                    html +=        '<div class="txt" onclick="location.href=`/post/'+data.contentid+'`">'
+                    html +=             '<h3>'+data.title+'</h5>'
+                    html +=             '<p>'+data.sigungu+'</p>'
+                    html +=             '<p>#'+code[data.cat2]+'</p>'
+                    html +=         '</div>'
+                    html +=     '</div>'
+                    html += '</div>'
+                }
+                $(".content-box").append(html);
+                
+
             },
             error : function(result){
                 console.log("에러발생")

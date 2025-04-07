@@ -119,10 +119,11 @@
         "A0101" : "자연관광지",
         "A0102" : "관광자원",
         "A0201" : "역사관광지",
-        "A0202" : ""
+        "A0202" : "휴양관광지",
+        "A0203" : "체험관광지",
+        "A0204" : "산업관광지",
+        "A0205" : "건축/조형물"
     }
-
-    code["A0101"]
 
     let startCount = 0
     console.log(count)
@@ -145,8 +146,8 @@
             region.push($(this).val());
         });
 
-        let favoritFillImgSrc = "{{url_for('static', filename='./img/favorite_check.png')}}"
-        let favoritUnFillImgSrc = "{{url_for('static', filename='./img/favorite.png')}}"
+        let favoriteFillImgSrc = "{{url_for('static', filename='./img/favorite_check.png')}}"
+        let favoriteUnFillImgSrc = "{{url_for('static', filename='./img/favorite.png')}}"
 
         $.ajax({
             type : "get",
@@ -161,7 +162,7 @@
                 //성공시 화면 HTML 추가..
 
                 let html = "";
-                for(let i = 0; i < datas.result.length; i ++){
+                for(let i = 0; i < datas.result.length; i++){
                     let data = datas.result[i];
                 
                     html += '<div class="content">';
@@ -169,9 +170,9 @@
                     html +=         '<label for="'+data.contentid+'">'
                     html +=             '<input type="checkbox" onclick="favorite('+data.contentid+', this)" id="'+data.contentid+'" name="'+data.contentid+'">'
                     if(data.checked == "TRUE"){
-                        html +=             '<img id="img_'+data.contentid+'" src="'+favoritFillImgSrc+'" alt="">'
+                        html +=             '<img id="img_'+data.contentid+'" src="'+favoriteFillImgSrc+'" alt="">'
                     }else{
-                        html +=             '<img id="img_'+data.contentid+'" src="'+favoritUnFillImgSrc+'" alt="">'
+                        html +=             '<img id="img_'+data.contentid+'" src="'+favoriteUnFillImgSrc+'" alt="">'
                     }
                     html +=         '</label>'
                     html +=     '</div>'

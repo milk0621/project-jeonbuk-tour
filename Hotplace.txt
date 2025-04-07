@@ -51,3 +51,8 @@
     카카오맵 API
     - 지도 마커, 위치 기반 검색 등 시각화 기능을 쉽게 구현 가능
     - 국내 사용자에게 익숙한 UI 제공
+
+   MVC 구조
+   Model - dao가 DB에 접근하여 데이터를 가져오는 기능을 한다.
+   View - template에 html을 이용해서 원하는 페이지를 만들어서 보여준다.
+   Controll - app.py에서 Get방식과 Post방식으로 

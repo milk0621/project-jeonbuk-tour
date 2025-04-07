@@ -4,61 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>region</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='./css/region.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='./css/theme.css')}}">
 </head>
 <body>
     {%include "header.html"%}
     <div class="wrap">
         <h1>테마별 인기 여행지</h1>
         <p>전북의 여행지를 한눈에!</p>
-        <form action="/region" method="get" id="regionForm">
+        <form action="/theme" method="get" id="regionForm">
             <div class="region">
                 <div>
                     <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '전주시' in regions else '' }} id="check1" name="region" value="전주시">
-                        <label for="check1">#전주</label>
+                        <input type="checkbox" {{ 'checked' if 'A0101' in cats else '' }} id="check1" name="cat" value="A0101">
+                        <label for="check1">#자연관광지</label>
                     </div>
                     <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '군산시' in regions else '' }} id="check2" name="region" value="군산시">
-                        <label for="check2">#군산</label>
+                        <input type="checkbox" {{ 'checked' if 'A0102' in cats else '' }} id="check2" name="cat" value="A0102">
+                        <label for="check2">#관광자원</label>
                     </div>
                     <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '정읍시' in regions else '' }} id="check3" name="region" value="정읍시">
-                        <label for="check3">#정읍</label>
-                    </div>
-                    <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '익산시' in regions else '' }} id="check4" name="region" value="익산시">
-                        <label for="check4">#익산</label>
-                    </div>
-                    <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '김제시' in regions else '' }} id="check5" name="region" value="김제시">
-                        <label for="check5">#김제</label>
+                        <input type="checkbox" {{ 'checked' if 'A0201' in cats else '' }} id="check3" name="cat" value="A0201">
+                        <label for="check3">#역사관광지</label>
                     </div>
                 </div>
                 <div>
                     <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '남원시' in regions else '' }} id="check6" name="region" value="남원시">
-                        <label for="check6">#남원</label>
+                        <input type="checkbox" {{ 'checked' if 'A0202' in cats else '' }} id="check6" name="cat" value="A0202">
+                        <label for="check6">#휴양관광지</label>
                     </div>
                     <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '임실군' in regions else '' }} id="check7" name="region" value="임실군">
-                        <label for="check7">#임실</label>
+                        <input type="checkbox" {{ 'checked' if 'A0203' in cats else '' }} id="check7" name="cat" value="A0203">
+                        <label for="check7">#체험관광지</label>
                     </div>
                     <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '순창시' in regions else '' }} id="check8" name="region" value="순창시">
-                        <label for="check8">#순창</label>
+                        <input type="checkbox" {{ 'checked' if 'A0204' in cats else '' }} id="check8" name="cat" value="A0204">
+                        <label for="check8">#산업관광지</label>
                     </div>
                     <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '부안군' in regions else '' }} id="check9" name="region" value="부안군">
-                        <label for="check9">#부안</label>
-                    </div>
-                    <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '고창군' in regions else '' }} id="check10" name="region" value="고창군">
-                        <label for="check10">#고창</label>
-                    </div>
-                    <div class="check_form">
-                        <input type="checkbox" {{ 'checked' if '기타' in regions else '' }} id="check11" name="region" value="기타">
-                        <label for="check11">#무주/진안/장수</label>
+                        <input type="checkbox" {{ 'checked' if 'A0205' in cats else '' }} id="check9" name="cat" value="A0205">
+                        <label for="check9">#건축/조형물</label>
                     </div>
                 </div>
             </div>
@@ -95,8 +79,8 @@
     </div>
 </body>
 <script>
-    $('input[name="region"]').change(function() {
-        $('input[name="region"]:checked').each(function() {
+    $('input[name="cat"]').change(function() {
+        $('input[name="cat"]:checked').each(function() {
             console.log($(this))
         });
         $("#regionForm").submit()
@@ -104,17 +88,23 @@
     
     $("#plus").click(function(){
         let page = $(".content").length + 10;
-        let region 
-        console.log(page)
+        let cat = [];
+
+        $('input[name="cat"]:checked').each(function() {
+            cat.push($(this).val());
+        });
+
         $.ajax({
-            type : "post",
+            type : "get",
             url : "/region_plus",
             data : {
                 "page" : page,
-                "region" : region
+                "cat" : cat
             },
+            traditional: true, //화면에서 서버로 배열을 넘길때 사용
             success : function(result){
                 console.log(result)
+                //성공시 화면 HTML 추가..
             },
             error : function(result){
                 console.log("에러발생")

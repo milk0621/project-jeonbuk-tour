@@ -27,7 +27,18 @@ class PlaceDAO:
             places.append(vo)
         return places
 
-    #목록 조회
+    #단건 조회(post)
+    def get_one_place(self, contentid):
+        sql = "select * from place where contentid = %s"
+        self.cursor.execute(sql, (contentid))
+        result = self.cursor.fetchone()
+        if result:
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = result
+            return PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
+        else:
+            return None
+
+    #목록 조회(지역별)
     def get_all_place(self, id, regions=None, page=0):
         
         if id :
@@ -56,13 +67,43 @@ class PlaceDAO:
             places.append(vo)
         return places
     
-    #단건 조회(post)
-    def get_one_place(self, contentid):
-        sql = "select * from place where contentid = %s"
-        self.cursor.execute(sql, (contentid))
-        result = self.cursor.fetchone()
-        if result:
-            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = result
-            return PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
+    #목록 조회(테마별)
+    def get_theme_place(self, id, cat=None, page=0):
+        if id :
+            sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid"
+            if cat:
+                sql += f" where cat2 in({cat})"
+            sql += f" limit {page}, 10"
+            
+            self.cursor.execute(sql, (id))
         else:
-            return None
+            sql = "select *, 'False' as checked from place"
+            if cat:
+                sql += f" where cat2 in({cat})"
+            sql += f" limit {page}, 10"
+            self.cursor.execute(sql)
+
+        result = self.cursor.fetchall()
+        places = []
+        for place in result:
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked = place
+            
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked)
+            places.append(vo)
+        return places
+    
+    # #지역별 관광지 갯수 조회
+    # def get_count(self, regions=None, theme=None):
+    #     #region, theme
+    #     sql = "select count(*) as cnt from place"
+    #     if regions:
+    #         sql += "where sigungu = %s"
+    #     if theme:
+    #         sql += "where cat2 = %s"
+    #     self.cursor.execute(sql, (regions, theme))
+    #     result = self.cursor.fetchall()
+    #     return result
+        
+        
+        
+    

@@ -5,6 +5,7 @@ from vo.place_vo import PlaceVO
 from dao.view_list_dao import ViewlistDAO
 from dao.favorites_dao import FavoritesDAO
 from dao.similar_dao import SimilarDAO
+from dao.review_dao import ReviewDAO
 
 app = Flask(__name__)
 app.secret_key = "***REMOVED***"
@@ -124,12 +125,15 @@ def cat_plus():
 
 @app.route("/post/<int:contentid>")
 def post(contentid):
-    dao = PlaceDAO()
-    vo = dao.get_one_place(contentid)
-    dao = SimilarDAO()
-    svo = dao.select_similar(contentid)
-    if vo or svo:
-        return render_template("post.html", data=vo, similars=svo)
+    pdao = PlaceDAO()
+    vo = pdao.get_one_place(contentid)
+    sdao = SimilarDAO()
+    svo = sdao.select_similar(contentid)
+    rdao = ReviewDAO()
+    rvo = rdao.select_review(contentid)
+
+    if vo or svo or rvo:
+        return render_template("post.html", data=vo, similars=svo, reviews=rvo)
     return redirect("/region")
 
 @app.route("/favorite", methods=["GET"])
@@ -138,9 +142,11 @@ def favorite():
     id = session.get("id")
     return render_template("favorite.html")
 
-@app.route("/review")
-def review():
-    return render_template("review.html")
+@app.route("/review/<int:contentid>")
+def review(contentid):
+    dao = ReviewDAO()
+    vo = dao.select_review(contentid)
+    return render_template("review.html", reviews=vo)
 
 @app.route("/course")
 def recommend():

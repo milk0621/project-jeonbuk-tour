@@ -1,8 +1,7 @@
 class ReviewVO:
-    def __init__(self, no=None, sno=None, star_score=None, author = None, content=None, score=None):
-        self.no = no
-        self.sno = sno
-        self.star_score = star_score
-        self.author = author
-        self.content = content
-        self.scroe = score
+    def __init__(self, contentid=None, total_score=None, name=None, review = None,score=None):
+        self.contentid = contentid
+        self.total_score = total_score
+        self.name = name
+        self.review = review
+        self.score = score

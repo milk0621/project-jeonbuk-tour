@@ -15,13 +15,15 @@ class ReviewDAO:
         self.cursor = self.conn.cursor()
 
     #전체 조회
-    def select_review(self, sno):
-        sql = "select * from review where sno = %s"
-        self.cursor.execute(sql, (sno))
+    def select_review(self, contentid):
+        sql = "select * from review where contentid = %s"
+        self.cursor.execute(sql, (contentid))
         result = self.cursor.fetchall()
         reviews = []
         for review in result:
-            no, sno, star_score, author, content, score = review
-            vo = ReviewVO(no, sno, star_score, author, content, score)
+            contentid, total_score, name, review, score = review
+            vo = ReviewVO(contentid, total_score, name, review, score)
             reviews.append(vo)
         return reviews
+    
+    

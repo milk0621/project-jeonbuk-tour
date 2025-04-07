@@ -23,36 +23,17 @@
         <div id="map" style="width:100%;height:300px;"></div> 
         <div class="review">
             <h2>관광지 리뷰</h2>
-            <div class="review-text">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <p>전주한옥마을 한바퀴 돌면서 맛있는 먹거리도 먹으며 아이가 한복 입고 돌아다니는데 꼭 공주님 된 거 같다면서 너무 좋아했어요</p>
-                <span>김*선</span> <span>2025.03.21</span>
-            </div>
-            <hr>
-            <div class="review-text">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <p>전주한옥마을 한바퀴 돌면서 맛있는 먹거리도 먹으며 아이가 한복 입고 돌아다니는데 꼭 공주님 된 거 같다면서 너무 좋아했어요</p>
-                <span>김*선</span> <span>2025.03.21</span>
-            </div>
-            <hr>
-            <div class="review-text">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
-                <p>전주한옥마을 한바퀴 돌면서 맛있는 먹거리도 먹으며 아이가 한복 입고 돌아다니는데 꼭 공주님 된 거 같다면서 너무 좋아했어요</p>
-                <span>김*선</span> <span>2025.03.21</span>
-            </div>
-            <a href="/review">리뷰 더보기 -></a>
+            {% for review in reviews[0:3] %}
+                <div class="review-text">
+                    {% for i in range(0, review.score) %}
+                        <img src="{{url_for('static', filename='./img/star.png')}}" alt="">
+                    {% endfor %}
+                    <p>{{review.review}}</p>
+                    <span>{{review.name}}</span>
+                </div>
+                <hr>
+            {% endfor %}
+            <a href="/review/{{data.contentid}}">리뷰 더보기 -></a>
         </div>
         <h2>유사 관광지 추천</h2>
         <div class="recommend">

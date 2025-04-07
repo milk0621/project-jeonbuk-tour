@@ -59,10 +59,29 @@ def logout():
 
 @app.route("/board", methods=["GET"])
 def board():
-    q = request.args.get("q")
     dao = PlaceDAO()
-    result = dao.search_places(q)
-    return render_template("board.html", items=result)
+    search = request.args.get("search")
+    if search is None:
+        search == ""
+    id = session.get("id")
+    cnt = dao.get_count_search(search)
+    result = dao.search_places(id, search)
+    return render_template("board.html", items=result, count=cnt[0], search=search)
+
+@app.route("/board_plus", methods=["GET"])
+def board_plus():
+    id = session.get("id")
+    page = request.args.get("page")
+    search = request.args.get("search")
+
+    dao = PlaceDAO()
+    result = dao.get_all_place(id, page=page, search=search)
+    
+    result_dict = []
+    for vo in result:
+        result_dict.append(vo.to_dict())
+        #PlaceVO 객체를 to_dict()를 통해 JSON으로 전송
+    return jsonify(result=result_dict)
 
 @app.route("/region", methods=["GET"])
 def region():
@@ -86,7 +105,7 @@ def region_plus():
     val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
     print(val)
     dao = PlaceDAO()
-    result = dao.get_all_place(id, val, page)
+    result = dao.search_places(id, val, page)
     
     result_dict = []
     for vo in result:
@@ -125,6 +144,9 @@ def cat_plus():
 
 @app.route("/post/<int:contentid>")
 def post(contentid):
+    
+    #로그인 했으면 최근본 관광지 테이블에 인서트
+    
     pdao = PlaceDAO()
     vo = pdao.get_one_place(contentid)
     sdao = SimilarDAO()

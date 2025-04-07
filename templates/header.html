@@ -19,7 +19,7 @@
             <div class="right">
                 <form action="/board" method="get">
                     <div class="search">
-                        <input type="text" placeholder="통합검색" name="q" required>
+                        <input type="text" placeholder="통합검색" name="search" required value="{{search}}">
                         <button type="submit"><img src="{{url_for('static', filename='./img/search_icon.png')}}" alt="검색버튼(돋보기)"></button>
                     </div>
                 </form>

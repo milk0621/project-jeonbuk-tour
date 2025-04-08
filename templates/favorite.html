@@ -39,28 +39,44 @@
             <div class="concon">
                 <div class="content-box">
                     {% for item in items %}
-                    <div class="content">
-                        {% if session["id"] %}
-                            <div class="checkbox_box">
-                                <label for="{{item.contentid}}">
-                                    {% if item.checked == 'FALSE' %}
-                                        <input type="checkbox" onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
-                                        
-                                        <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite.png')}}" alt="0">
-                                    {% else %}
-                                        <input type="checkbox" checked onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
-                                        <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite_check.png')}}" alt="1">
+                        <div class="content">
+                            {% if session["id"] %}
+                                <div class="checkbox_box">
+                                    <label for="{{item.contentid}}">
+                                        {% if item.checked == 'FALSE' %}
+                                            <input type="checkbox" onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
+                                            
+                                            <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite.png')}}" alt="0">
+                                        {% else %}
+                                            <input type="checkbox" checked onclick="favorite('{{item.contentid}}', this)" id="{{item.contentid}}" name="{{item.contentid}}">
+                                            <img id="img_{{item.contentid}}" src="{{url_for('static', filename='./img/favorite_check.png')}}" alt="1">
+                                        {% endif %}
+                                    </label>
+                                </div>
+                            {% endif %}
+                            <img src="{{item.firstimage}}" alt="">
+                            <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
+                                <h3>{{item.title}}</h5>
+                                <p>{{item.sigungu}}</p>
+                                <p>#
+                                    {% if item.cat2 == "A0101" %}
+                                    자연관광지
+                                    {% elif item.cat2 == "A0102" %}
+                                    관광자원
+                                    {% elif item.cat2 == "A0201" %}
+                                    역사관광지
+                                    {% elif item.cat2 == "A0202" %}
+                                    휴양관광지
+                                    {% elif item.cat2 == "A0203" %}
+                                    체험관광지
+                                    {% elif item.cat2 == "A0204" %}
+                                    산업관광지
+                                    {% elif item.cat2 == "A0205" %}
+                                    건축/조형물
                                     {% endif %}
-                                </label>
+                                </p>
                             </div>
-                        {% endif %}
-                        <img src="{{item.firstimage}}" alt="">
-                        <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
-                            <h3>{{item.title}}</h5>
-                            <p>{{item.sigungu}}</p>
-                            <p>#한옥 #전통문화</p>
                         </div>
-                    </div>
                     {% endfor %}
                 </div>
             </div>

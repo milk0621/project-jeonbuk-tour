@@ -2,6 +2,7 @@ import pymysql
 import sys
 sys.path.append(".")
 from vo.favorites_vo import FavoritesVO
+from vo.place_vo import PlaceVO
 
 class FavoritesDAO:
     def __init__(self):
@@ -30,15 +31,16 @@ class FavoritesDAO:
 
     #조회
     def selecte_favorite(self, id):
-        sql = "select * from favorites where id = %s"
+        sql = "select p.* from favorites f left join place p on f.contentid = p.contentid where f.id = %s"
         #select * from favorites f left join place p on f.contentid = p.contentid where f.id = 'hong';
         
         self.cursor.execute(sql, (id))
         result = self.cursor.fetchall()
         favorites = []
         for favorite in result:
-            id, contentid = favorite
-            vo = FavoritesVO(id, contentid)
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = favorite
+            
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
             favorites.append(vo)
         return favorites
 

@@ -161,21 +161,18 @@ def post(contentid):
         return render_template("post.html", data=vo, similars=svo, reviews=rvo)
     return redirect("/region")
 
-@app.route("/favorite", methods=["GET"])
-def favorite():
-    dao = PlaceDAO()
-    id = session.get("id")
-    return render_template("favorite.html")
-
 @app.route("/review/<int:contentid>")
 def review(contentid):
     dao = ReviewDAO()
     vo = dao.select_review(contentid)
     return render_template("review.html", reviews=vo)
 
-@app.route("/course")
-def recommend():
-    return render_template("course.html")
+@app.route("/favorite", methods=["GET"])
+def favorite():
+    id = session.get("id")
+    dao = FavoritesDAO()
+    vo = dao.selecte_favorite(id)
+    return render_template("favorite.html", items=vo)
 
 @app.route("/favorite_data", methods=["POST"])
 def favorite_data():

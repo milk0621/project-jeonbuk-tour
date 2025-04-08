@@ -2,6 +2,7 @@ import pymysql
 import sys
 sys.path.append(".")
 from vo.view_list_vo import ViewlistVO
+from vo.place_vo import PlaceVO
 
 class ViewlistDAO:
     def __init__(self):
@@ -22,13 +23,14 @@ class ViewlistDAO:
 
     #조회
     def select_view_list(self, id):
-        sql = "select * from view_list order by 'no' desc limit 5 where id=%s"
+        sql = "select p.* from view_list v left join place p on v.sno = p.contentid where v.id = %s order by no desc limit 5"
         self.cursor.execute(sql, (id))
         result = self.cursor.fetchall()
         view_lists = []
         for view_list in result:
-            no, id, sno = view_list
-            vo = ViewlistVO(no, id, sno)
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = view_list
+            
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
             view_lists.append(vo)
         return view_lists
             

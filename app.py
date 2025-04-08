@@ -36,19 +36,16 @@ def login():
 
 @app.route("/mypage")
 def mypage():
-    #id = session.get("id")
-    #hong
     if "id" in session:
         #session 딕셔너리 키에 hong이 있으면
         dao = UserDAO()
         id = session.get("id")
         vo = dao.get_one_user(id)
         
-        region_dao = ViewlistDAO()
-        #region_dao.select_view_list(id)
-        #최근본여행지 해야함
+        vdao = ViewlistDAO()
+        list = vdao.select_view_list(id)
         
-        return render_template("mypage.html", data=vo, a="data")
+        return render_template("mypage.html", data=vo, a="data", lists=list)
     else:
         return render_template("home.html")
 
@@ -146,6 +143,12 @@ def cat_plus():
 def post(contentid):
     
     #로그인 했으면 최근본 관광지 테이블에 인서트
+    id = session.get("id")
+    if id:
+        vdao = ViewlistDAO()
+        vo = vdao.insert_view_list(id, contentid)
+    else:
+        pass
     
     pdao = PlaceDAO()
     vo = pdao.get_one_place(contentid)

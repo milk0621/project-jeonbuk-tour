@@ -31,27 +31,6 @@ hr {
 .favorites-txt h2 {
     width: 8%;
 }
-.check_form {
-    display: inline-block;
-}
-.check_form input, .content-box input {
-    display: none;
-}
-.check_form label {
-    display: inline-block;
-    overflow: hidden;
-    width: 120px;
-    height: 30px;
-    border-radius: 15px;
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #000;
-    line-height: 30px;
-}
-.check_form input:checked + label {
-    background-color: #000;
-    color: #fff;
-}
 .concon {
     margin: 50px 0;
 }
@@ -62,6 +41,9 @@ hr {
     justify-content: center;
     align-items: center;
     gap: 35px;
+}
+.content-box input {
+    display: none;
 }
 .content{
     width: 220px;

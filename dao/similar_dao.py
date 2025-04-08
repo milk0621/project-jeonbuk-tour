@@ -16,7 +16,7 @@ class SimilarDAO:
     
     #유사도 조회    
     def select_similar(self, no):
-        sql = "select p.contentid, p.title, p.firstimage from place pl inner join similar s on pl.contentid = s.no inner join place p on p.contentid = s.sno where pl.contentid = %s order by similar desc limit 3"
+        sql = "select p.contentid, p.title, p.firstimage from place pl inner join similar s on pl.contentid = s.no inner join place p on p.contentid = s.sno where pl.contentid = %s order by sim desc limit 3"
         self.cursor.execute(sql, (no))
         result = self.cursor.fetchall()
         similars = []

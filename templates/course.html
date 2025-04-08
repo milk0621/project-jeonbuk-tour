@@ -9,99 +9,88 @@
 <body>
     {% include "header.html" %}
     <div class="wrap">
-        <form class="course-form">
-            <div class="question">
-                <h1>여행 기간을 선택해주세요.</h1>
-                <div class="date-form">
-                    <div class="radio-form">
-                        <input type="radio" id="radio1" name="date" value="">
-                        <label for="radio1">당일여행</label>
-                    </div>
-                    <div class="radio-form">
-                        <input type="radio" id="radio2" name="date" value="">
-                        <label for="radio2">1박 2일</label>
-                    </div>
-                    <div class="radio-form">
-                        <input type="radio" id="radio3" name="date" value="">
-                        <label for="radio3">2박 3일</label>
-                    </div>
-                </div>
-            </div>
+        <form action="/course_recommend" method="post" class="course-form">
             <div class="question">
                 <h1>여행을 떠나고 싶은 지역은 어디인가요?</h1>
                 <div class="region-form">
                     <div class="check-form">
-                        <input type="checkbox" id="check1" name="" value="">
-                        <label for="check1">#전주</label>
+                        <input type="radio" id="region1" name="region" value="전주시">
+                        <label for="region1">#전주</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check2" name="" value="">
-                        <label for="check2">#군산</label>
+                        <input type="radio" id="region2" name="region" value="군산시">
+                        <label for="region2">#군산</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check3" name="" value="">
-                        <label for="check3">#정읍</label>
+                        <input type="radio" id="region3" name="region" value="정읍시">
+                        <label for="region3">#정읍</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check4" name="" value="">
-                        <label for="check4">#익산</label>
+                        <input type="radio" id="region4" name="region" value="익산시">
+                        <label for="region4">#익산</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check5" name="" value="">
-                        <label for="check5">#김제</label>
+                        <input type="radio" id="region5" name="region" value="김제시">
+                        <label for="region5">#김제</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check6" name="" value="">
-                        <label for="check6">#남원</label>
+                        <input type="radio" id="region6" name="region" value="남원시">
+                        <label for="region6">#남원</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check7" name="" value="">
-                        <label for="check7">#임실</label>
+                        <input type="radio" id="region7" name="region" value="임실군">
+                        <label for="region7">#임실</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check8" name="" value="">
-                        <label for="check8">#순창</label>
+                        <input type="radio" id="region8" name="region" value="순창시">
+                        <label for="region8">#순창</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check9" name="" value="">
-                        <label for="check9">#부안</label>
+                        <input type="radio" id="region9" name="region" value="부안군">
+                        <label for="region9">#부안</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check10" name="" value="">
-                        <label for="check10">#고창</label>
+                        <input type="radio" id="region10" name="region" value="고창군">
+                        <label for="region10">#고창</label>
                     </div>
                     <div class="check-form">
-                        <input type="checkbox" id="check11" name="" value="">
-                        <label for="check11">#무주/진안/장수</label>
+                        <input type="radio" id="region11" name="region" value="기타">
+                        <label for="region11">#무주/진안/장수</label>
                     </div>
                 </div>
             </div>
             <div class="question">
                 <h1>원하는 여행 테마를 선택해주세요.</h1>
-                <div class="region-form">
-                    <div class="check-form">
-                        <input type="checkbox" id="check1" name="" value="">
-                        <label for="check1">#전주</label>
-                    </div>
-                    <div class="check-form">
-                        <input type="checkbox" id="check2" name="" value="">
-                        <label for="check2">#군산</label>
-                    </div>
-                    <div class="check-form">
-                        <input type="checkbox" id="check3" name="" value="">
-                        <label for="check3">#정읍</label>
-                    </div>
-                    <div class="check-form">
-                        <input type="checkbox" id="check4" name="" value="">
-                        <label for="check4">#익산</label>
-                    </div>
-                    <div class="check-form">
-                        <input type="checkbox" id="check5" name="" value="">
-                        <label for="check5">#김제</label>
-                    </div>
-                    <div class="check-form">
-                        <input type="checkbox" id="check6" name="" value="">
-                        <label for="check6">#남원</label>
+                <div class="region">
+                    <div>
+                        <div class="check_form">
+                            <input type="checkbox" id="cat1" name="cat" value="A0101">
+                            <label for="cat1">#자연관광지</label>
+                        </div>
+                        <div class="check_form">
+                            <input type="checkbox" id="cat2" name="cat" value="A0102">
+                            <label for="cat2">#관광자원</label>
+                        </div>
+                        <div class="check_form">
+                            <input type="checkbox" id="cat3" name="cat" value="A0201">
+                            <label for="cat3">#역사관광지</label>
+                        </div>
+                        <div class="check_form">
+                            <input type="checkbox" id="cat4" name="cat" value="A0202">
+                            <label for="cat4">#휴양관광지</label>
+                        </div>
+                        <div class="check_form">
+                            <input type="checkbox" id="cat5" name="cat" value="A0203">
+                            <label for="cat5">#체험관광지</label>
+                        </div>
+                        <div class="check_form">
+                            <input type="checkbox" id="cat6" name="cat" value="A0204">
+                            <label for="cat6">#산업관광지</label>
+                        </div>
+                        <div class="check_form">
+                            <input type="checkbox" id="cat7" name="cat" value="A0205">
+                            <label for="cat7">#건축/조형물</label>
+                        </div>
                     </div>
                 </div>
             </div>

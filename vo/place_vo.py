@@ -1,5 +1,5 @@
 class PlaceVO:
-    def __init__(self, contentid=None, overview=None, homepage=None, addr1=None, cat1=None, cat2=None, cat3=None, firstimage=None, mapx=None, mapy=None, title=None, sigungu=None, checked=None):
+    def __init__(self, contentid=None, overview=None, homepage=None, addr1=None, cat1=None, cat2=None, cat3=None, firstimage=None, mapx=None, mapy=None, title=None, sigungu=None, total_score=None, checked=None):
         self.contentid = contentid
         self.overview = overview
         self.homepage = homepage
@@ -12,6 +12,7 @@ class PlaceVO:
         self.mapy = mapy
         self.title = title
         self.sigungu = sigungu
+        self.total_score = total_score
         self.checked = checked
 
     #리스트 형식의 배열을 딕셔너리 형식으로 변환
@@ -30,5 +31,6 @@ class PlaceVO:
             "mapy": self.mapy,
             "title": self.title,
             "sigungu": self.sigungu,
+            "total_score": self.total_score,
             "checked": self.checked
         }

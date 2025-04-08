@@ -33,9 +33,9 @@ class PlaceDAO:
         result = self.cursor.fetchall()
         places = []
         for place in result:
-            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked = place
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score, checked = place
             
-            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked)
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score, checked)
             places.append(vo)
         return places
     
@@ -45,8 +45,8 @@ class PlaceDAO:
         self.cursor.execute(sql, (contentid))
         result = self.cursor.fetchone()
         if result:
-            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu = result
-            return PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu)
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score = result
+            return PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score)
         else:
             return None
 
@@ -79,9 +79,9 @@ class PlaceDAO:
         result = self.cursor.fetchall()
         places = []
         for place in result:
-            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked = place
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score, checked = place
             
-            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked)
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score, checked)
             places.append(vo)
         return places
     
@@ -108,9 +108,9 @@ class PlaceDAO:
         result = self.cursor.fetchall()
         places = []
         for place in result:
-            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked = place
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score, checked = place
             
-            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, checked)
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score, checked)
             places.append(vo)
         return places
     
@@ -145,3 +145,25 @@ class PlaceDAO:
         self.cursor.execute(sql)
         result = self.cursor.fetchone()
         return result
+    
+    #여행 코스 조회
+    def get_course_place(self, region, cat=None):
+        #select p.* from place p left join review r on p.contentid = r.contentid where sigungu = '전주시' and cat2 in('A0101') order by r.total_score desc;
+        print(region)
+        sql = "select * from place where sigungu = %s"
+        if cat:
+            sql += f" and cat2 in({cat}) order by total_score desc"
+            self.cursor.execute(sql, (region))
+        else:
+            self.cursor.execute(sql, (region))
+
+        result = self.cursor.fetchall()
+        courses = []
+        for course in result:
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score = course
+            
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score)
+            courses.append(vo)
+        return courses
+        
+

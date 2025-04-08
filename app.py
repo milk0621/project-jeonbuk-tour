@@ -192,4 +192,20 @@ def favorite_data():
     response = jsonify(result=True)
     return response
 
+@app.route("/course", methods=["GET"])
+def course():
+    
+    # return redirect("/course?region=<region>&cat=<cat>", items=vo)
+    return render_template("course.html")
+
+@app.route("/course_recommend", methods=["POST"])
+def course_recommend():
+    region = request.form.get("region")
+    cats = request.form.getlist("cat")
+    val = ", ".join(list(map(lambda x : f"\'{x}\'", cats)))
+
+    dao = PlaceDAO()
+    vo = dao.get_course_place(region, val)
+    return render_template("course_recommend.html", items=vo)
+
 app.run(debug=True)

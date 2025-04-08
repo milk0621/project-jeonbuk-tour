@@ -15,7 +15,7 @@ def clean(text):
     else:
         return ""
 
-result.drop(columns=["title", "overview", "homepage", "addr1", "cat1", "cat2", "cat3", "firstimage", "mapx", "mapy", "sigungu"], inplace=True)
+result.drop(columns=["title", "overview", "homepage", "addr1", "cat1", "cat2", "cat3", "firstimage", "mapx", "mapy", "sigungu", "total_score"], inplace=True)
 
 result["review"] = text.fillna("").apply(clean)
 result.to_csv("./datas/csv/pre_review.csv", index=False)

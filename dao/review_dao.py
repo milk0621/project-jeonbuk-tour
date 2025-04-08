@@ -21,8 +21,8 @@ class ReviewDAO:
         result = self.cursor.fetchall()
         reviews = []
         for review in result:
-            contentid, total_score, name, review, score = review
-            vo = ReviewVO(contentid, total_score, name, review, score)
+            contentid, name, review, score = review
+            vo = ReviewVO(contentid, name, review, score)
             reviews.append(vo)
 
         if result:

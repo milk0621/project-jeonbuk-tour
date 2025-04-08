@@ -152,9 +152,10 @@ class PlaceDAO:
         print(region)
         sql = "select * from place where sigungu = %s"
         if cat:
-            sql += f" and cat2 in({cat}) order by total_score desc"
+            sql += f" and cat2 in({cat}) order by total_score desc limit 10"
             self.cursor.execute(sql, (region))
         else:
+            sql += " limit 10"
             self.cursor.execute(sql, (region))
 
         result = self.cursor.fetchall()

@@ -1,5 +1,5 @@
 class PlaceVO:
-    def __init__(self, contentid=None, overview=None, homepage=None, addr1=None, cat1=None, cat2=None, cat3=None, firstimage=None, mapx=None, mapy=None, title=None, sigungu=None, total_score=None, checked=None):
+    def __init__(self, contentid=None, overview=None, homepage=None, addr1=None, cat1=None, cat2=None, cat3=None, firstimage=None, mapx=None, mapy=None, title=None, sigungu=None, total_score=None, checked=None, place_vo=None):
         self.contentid = contentid
         self.overview = overview
         self.homepage = homepage
@@ -14,6 +14,7 @@ class PlaceVO:
         self.sigungu = sigungu
         self.total_score = total_score
         self.checked = checked
+        self.place_vo = place_vo
 
     #리스트 형식의 배열을 딕셔너리 형식으로 변환
     #Flask의 jsonify() 함수는 dict, list, str, int 등 JSON으로 직렬화할 수 있는 기본 타입만 받기 때문에 PlaceVO와 같은 사용자 정의 클래스는 에러가 발생.

@@ -4,6 +4,14 @@
     margin-top: 200px;
     text-align: center;
 }
+.content-box{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+}
 .content{
     width: 220px;
     height: 340px;

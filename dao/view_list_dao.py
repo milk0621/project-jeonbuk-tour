@@ -23,14 +23,14 @@ class ViewlistDAO:
 
     #조회
     def select_view_list(self, id):
-        sql = "select p.* from view_list v left join place p on v.sno = p.contentid where v.id = %s order by no desc limit 5"
-        self.cursor.execute(sql, (id))
+        sql = "select p.*, IF(f.id = %s, 'TRUE', 'FALSE') AS checked from view_list v left join place p on v.sno = p.contentid left join favorites f on p.contentid = f.contentid where v.id = %s order by no desc limit 5"
+        self.cursor.execute(sql, (id, id))
         result = self.cursor.fetchall()
         view_lists = []
         for view_list in result:
-            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score = view_list
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score, checked = view_list
             
-            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score)
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score, checked)
             view_lists.append(vo)
         return view_lists
             

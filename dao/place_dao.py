@@ -147,16 +147,21 @@ class PlaceDAO:
         return result
     
     #여행 코스 조회
-    def get_course_place(self, region, cat=None):
+    def get_course_place(self, region=None, cat=None):
         #select p.* from place p left join review r on p.contentid = r.contentid where sigungu = '전주시' and cat2 in('A0101') order by r.total_score desc;
-        print(region)
-        sql = "select * from place where sigungu = %s"
+        sql = "select * from place"
+
+        if "기타" in region:
+            sql += f" where sigungu in('무주군', '진안군', '장수군')"
+        else:
+            sql += f" where sigungu = {region}"
+
         if cat:
             sql += f" and cat2 in({cat}) order by total_score desc limit 5"
-            self.cursor.execute(sql, (region))
+            self.cursor.execute(sql)
         else:
             sql += " limit 5"
-            self.cursor.execute(sql, (region))
+            self.cursor.execute(sql)
 
         result = self.cursor.fetchall()
         courses = []

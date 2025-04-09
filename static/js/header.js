@@ -46,6 +46,7 @@ $(document).ready(function() {
 //회원가입
 $(document).ready(function() {
     $("#join").click(function() {
+        $("#login-modal").fadeOut();
         $("#join-modal").fadeIn();
     });
 

@@ -15,6 +15,21 @@ class PlaceDAO:
         self.cursor = self.conn.cursor()
         print("쿼리 객체 생성")
 
+    #인기순 조회
+    def popularity_places(self):
+        sql = "select * from place order by total_score asc limit 10"
+        self.cursor.execute(sql)
+
+        result = self.cursor.fetchall()
+        places = []
+        for place in result:
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score= place
+            
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score)
+            places.append(vo)
+        return places
+
+
     #검색 조회
     def search_places(self, id, search=None, page=0):
         if id:
@@ -54,7 +69,7 @@ class PlaceDAO:
     def get_all_place(self, id, regions=None, page=0, search=None):
         
         if id :
-            sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid"
+            sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid and favorites.id = %s"
             if regions:
                 if "기타" in regions:
                     sql += f" where sigungu in('무주군', '진안군', '장수군', {regions})"
@@ -65,7 +80,7 @@ class PlaceDAO:
             sql += f" limit {page}, 10"
             # sql += " order..."
             print(sql)
-            self.cursor.execute(sql, (id))
+            self.cursor.execute(sql, (id, id))
         else:
             sql = "select *, 'False' as checked from place"
             if regions:
@@ -88,14 +103,14 @@ class PlaceDAO:
     #목록 조회(테마별)
     def get_theme_place(self, id, cat=None, page=0, search=None):
         if id :
-            sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid"
+            sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid and favorites.id = %s"
             if cat:
                 sql += f" where cat2 in({cat})"
             if search:
                 sql += f" where title like CONCAT('%%', '{search}','%%') or sigungu like CONCAT('%%', '{search}','%%')"
             sql += f" limit {page}, 10"
             
-            self.cursor.execute(sql, (id))
+            self.cursor.execute(sql, (id, id))
         else:
             sql = "select *, 'False' as checked from place"
             if cat:
@@ -154,7 +169,7 @@ class PlaceDAO:
         if "기타" in region:
             sql += f" where sigungu in('무주군', '진안군', '장수군')"
         else:
-            sql += f" where sigungu = {region}"
+            sql += f" where sigungu = '{region}'"
 
         if cat:
             sql += f" and cat2 in({cat}) order by total_score desc limit 5"

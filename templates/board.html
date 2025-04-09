@@ -28,7 +28,7 @@
                             </label>
                         </div>
                     {% endif %}
-                    <img src="{{item.firstimage}}" alt="">
+                    <img src="{{item.firstimage}}" alt="" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1174/1174795.png'">
                     <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
                         <h3>{{item.title}}</h5>
                         <p>{{item.sigungu}}</p>

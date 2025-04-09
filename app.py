@@ -12,7 +12,10 @@ app.secret_key = "***REMOVED***"
 
 @app.route("/")
 def home():
-    return render_template("home.html")     
+    dao = PlaceDAO()
+    vo = dao.popularity_places()
+
+    return render_template("home.html", items=vo)     
 
 @app.route("/join", methods=["POST"])
 def join():
@@ -175,6 +178,9 @@ def favorite():
     id = session.get("id")
     dao = FavoritesDAO()
     vo = dao.selecte_favorite(id)
+
+    #즐겨찾기 바탕으로 유사도 조회 후 추천
+
     return render_template("favorite.html", items=vo)
 
 @app.route("/favorite_data", methods=["POST"])
@@ -218,7 +224,6 @@ def course_recommend():
             vo[i].place_vo = svo
             #기준 관광지 5개중 0번인덱스 안에 place_vo에 유사 관광지 리스트 대입
             #꺼내서 쓸때에는 vo.place_vo.contentid -> 유사 관광지의 contentid
-            print(svo[0])
 
         return render_template("course_recommend.html", items=vo)
     else:

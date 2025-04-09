@@ -52,56 +52,14 @@
         <p>최근 가장 인기있는 전라북도의 관광명소를 방문해 보세요!</p>
         <div class="slide_container">
             <div class="slideWrap">
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원1</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원2</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원3</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원4</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원5</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원6</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원7</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원8</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원9</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
-                <div class="slide">
-                    <img alt="" src="{{url_for('static', filename='./img/slide_5.jpg')}}">
-                    <h3>전주 동물원10</h3>
-                    <p>전북특별자치도 전주시 덕진구 소리로 68 전주동물원</p>
-                </div>
+                {% for item in items %}
+                    <div class="slide">
+                        <img alt="" src="{{item.firstimage}}">
+                        <h3>{{item.title}}</h3>
+                        <p>{{item.addr1}}</p>
+                    </div>
+                {% endfor %}
+                
             </div>
         </div>
         <button type="button" onclick="location.href='/region'">+더보기</button>

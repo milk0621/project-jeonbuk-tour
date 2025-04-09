@@ -9,34 +9,67 @@
 <body>
     {% include "header.html" %}
     <div class="wrap">
-        <div class="content-box">
+        <h1>이런 코스는 어떠세요?</h1>
+        {% if items %}
             {% for item in items %}
-                <div class="content">
-                    <img src="{{item.firstimage}}" alt="">
-                    <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
-                        <h3>{{item.title}}</h5>
-                        <p>{{item.sigungu}}</p>
-                        <p>#
-                            {% if item.cat2 == "A0101" %}
-                            자연관광지
-                            {% elif item.cat2 == "A0102" %}
-                            관광자원
-                            {% elif item.cat2 == "A0201" %}
-                            역사관광지
-                            {% elif item.cat2 == "A0202" %}
-                            휴양관광지
-                            {% elif item.cat2 == "A0203" %}
-                            체험관광지
-                            {% elif item.cat2 == "A0204" %}
-                            산업관광지
-                            {% elif item.cat2 == "A0205" %}
-                            건축/조형물
-                            {% endif %}
-                        </p>
+                <div class="content-box">
+                    <div class="content">
+                        <img src="{{item.firstimage}}" alt="">
+                        <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
+                            <h3>{{item.title}}</h5>
+                            <p>{{item.sigungu}}</p>
+                            <p>#
+                                {% if item.cat2 == "A0101" %}
+                                자연관광지
+                                {% elif item.cat2 == "A0102" %}
+                                관광자원
+                                {% elif item.cat2 == "A0201" %}
+                                역사관광지
+                                {% elif item.cat2 == "A0202" %}
+                                휴양관광지
+                                {% elif item.cat2 == "A0203" %}
+                                체험관광지
+                                {% elif item.cat2 == "A0204" %}
+                                산업관광지
+                                {% elif item.cat2 == "A0205" %}
+                                건축/조형물
+                                {% endif %}
+                            </p>
+                        </div>
                     </div>
+                    {% for i in item.place_vo %}
+                        ->
+                        <div class="content">
+                            <img src="{{i.firstimage}}" alt="">
+                            <div class="txt" onclick="location.href='/post/{{i.contentid}}'">
+                                <h3>{{i.title}}</h5>
+                                <p>{{i.sigungu}}</p>
+                                <p>#
+                                    {% if i.cat2 == "A0101" %}
+                                    자연관광지
+                                    {% elif i.cat2 == "A0102" %}
+                                    관광자원
+                                    {% elif i.cat2 == "A0201" %}
+                                    역사관광지
+                                    {% elif i.cat2 == "A0202" %}
+                                    휴양관광지
+                                    {% elif i.cat2 == "A0203" %}
+                                    체험관광지
+                                    {% elif i.cat2 == "A0204" %}
+                                    산업관광지
+                                    {% elif i.cat2 == "A0205" %}
+                                    건축/조형물
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
+                <hr>
             {% endfor %}
-        </div>
+        {% else %}
+                <h1>관광지 조회 결과 없음</h1>
+        {% endif %}
     </div>
 </body>
 </html>

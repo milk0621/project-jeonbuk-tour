@@ -4,6 +4,9 @@
     margin-top: 200px;
     text-align: center;
 }
+.wrap h1 {
+    font-size: 2.4rem;
+}
 .content-box{
     display: flex;
     flex-wrap: wrap;
@@ -11,6 +14,7 @@
     justify-content: center;
     align-items: center;
     gap: 35px;
+    margin: 70px 0;
 }
 .content{
     width: 220px;

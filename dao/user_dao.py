@@ -39,13 +39,13 @@ class UserDAO:
             return None
         
     #4. 비밀번호변경
-    def update_pw(self, id):
+    def update_pw(self, id, pw):
         sql = "update user set pw = %s where id = %s"
-        self.cursor.execute(sql, (id))
+        self.cursor.execute(sql, (pw, id))
         self.conn.commit()
         
-    #5. 삭제
+    #5. 탈퇴
     def delete_user(self, id):
-        sql = "update user set user_type = 99 delete_date = now() where id = %s"
+        sql = "update user set user_type = 99, delete_date = now() where id = %s"
         self.cursor.execute(sql, (id))
         self.conn.commit()

@@ -18,7 +18,30 @@
                 <p>이름 : {{data.name}}</p>
                 <p>아이디 : {{data.id}}</p>
                 <p>이메일 : {{data.email}}</p>
-                <button>비밀번호 변경</button>
+                <button class="change-btn">비밀번호 변경</button>
+                <button class="delete-btn">회원탈퇴</button>
+            </div>
+            <div id="change_pw" class="change_pw">
+                <form action="/mypage" method="post">
+                    <div class="change_content">
+                        <span class="close">&times;</span>
+                        <h2>비밀번호 변경</h2>
+                        <input type="password" placeholder="새 비밀번호" name="pw"><br>
+                        <input type="password" placeholder="새 비밀번호 확인" name="pwc"><br>
+                        <button type="submit">확인</button>
+                    </div>
+                </form>
+            </div>
+            <div id="delete_user" class="delete_user">
+                <form action="/delete_user" method="post" id="out-form">
+                    <div class="delete_content">
+                        <h2>회원탈퇴</h2>
+                        <p>탈퇴를 원하시면 비밀번호를 입력해주세요.</p>
+                        <input id="out-pw" type="password" placeholder="현재 비밀번호" name="pw"><br>
+                        <button type="submit">확인</button>
+                        <button type="button" class="d_close">취소</button>
+                    </div>
+                </form>
             </div>
             <div class="info view-list">
                 <h2>최근 본 여행지</h2>
@@ -71,4 +94,36 @@
         </div>
     </div>
 </body>
+<script src="{{url_for('static', filename='./js/jquery-3.7.1.js')}}"></script>
+<script src="{{url_for('static', filename='./js/mypage.js')}}"></script>
+<script>
+    $("#out-form").submit(function(e){
+        e.preventDefault()
+        if($("#out-pw").val().trim() == ""){
+            alert("비밀번호를 입력해주세요")
+            return false
+        }
+        $.ajax({
+            url : "/password-check",
+            type : "post",
+            data : {
+                pw : $("#out-pw").val()
+            },
+            success : function(data){
+                console.log(data)
+                if(data.result == true){
+                    $("#out-form")[0].submit();
+                    return true
+                }else{
+                    alert(data.message)
+                    return false
+                }
+            },
+            error : function(){
+                alert("error")
+                return false
+            }
+        })
+    })
+</script>
 </html>

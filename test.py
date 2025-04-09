@@ -1,3 +1,4 @@
-a = ['전주시', '군산시', '정읍시', '익산시']
-a = list(map(lambda x : f"\'{x}\'", a))
-print(", ".join(a))
+from dao.favorites_dao import FavoritesDAO
+dao = FavoritesDAO()
+contentids = [125415, 125416, 125447]
+dao.random(contentids)

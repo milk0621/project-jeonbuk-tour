@@ -10,19 +10,9 @@ from dao.review_dao import ReviewDAO
 app = Flask(__name__)
 app.secret_key = "***REMOVED***"
 
-@app.route("/password-check", methods=["POST"])
-def password_check():
-    pw = request.form.get("pw")
-    if pw and pw == session["pw"]:
-        return jsonify(result=True)
-    return jsonify(result=False, message="비밀번호 확인해주세요")
-
 @app.route("/")
 def home():
-    dao = PlaceDAO()
-    vo = dao.popularity_places()
-
-    return render_template("home.html", items=vo)     
+    return render_template("home.html")     
 
 @app.route("/join", methods=["POST"])
 def join():
@@ -42,41 +32,26 @@ def login():
     result = dao.login(id, pw)
     if result:
         session["id"] = id
-        session["pw"] = pw
     return redirect("/")
 
-@app.route("/mypage", methods=["GET", "POST"])
+@app.route("/mypage")
 def mypage():
     if "id" in session:
+        #session 딕셔너리 키에 hong이 있으면
         dao = UserDAO()
         id = session.get("id")
-        if request.method == "POST":
-            pw = request.form.get("pw")
-            dao.update_pw(id, pw)
-            pass
-        #session 딕셔너리 키에 hong이 있으면
         vo = dao.get_one_user(id)
         
         vdao = ViewlistDAO()
         list = vdao.select_view_list(id)
-
+        
         return render_template("mypage.html", data=vo, a="data", lists=list)
     else:
         return render_template("home.html")
 
-@app.route("/delete_user", methods=["POST"])
-def delete():
-    dao = UserDAO()
-    id = session.get("id")
-    dao.delete_user(id)
-    session.pop("id", None)
-    session.pop("pw", None)
-    return render_template("home.html")
-
 @app.route("/logout")
 def logout():
      session.pop("id", None)
-     session.pop("pw", None)
      return render_template("home.html")
 
 @app.route("/board", methods=["GET"])
@@ -200,10 +175,9 @@ def favorite():
     id = session.get("id")
     dao = FavoritesDAO()
     vo = dao.selecte_favorite(id)
-
-    #즐겨찾기 바탕으로 유사도 조회 후 추천
-
-    return render_template("favorite.html", items=vo)
+    d = list(map(lambda x: str(x.contentid), vo))
+    results = dao.random(d)
+    return render_template("favorite.html", items=vo, results=results)
 
 @app.route("/favorite_data", methods=["POST"])
 def favorite_data():
@@ -234,21 +208,18 @@ def course_recommend():
 
     dao = PlaceDAO()
     vo = dao.get_course_place(region, val)
-    print(vo)
-    #기준 관광지 5개 조회
+    #기준 관광지 10개 조회
 
-    if vo:
-        for i, data in enumerate(vo):
-            #기준 관광지 5개 만큼 조회
-            sdao = SimilarDAO()
-            svo = sdao.select_similar(data.contentid)
-            #유사 관광지 3개 조회 (data.contentid는 현재 기준 관광지의 contentid)
-            vo[i].place_vo = svo
-            #기준 관광지 5개중 0번인덱스 안에 place_vo에 유사 관광지 리스트 대입
-            #꺼내서 쓸때에는 vo.place_vo.contentid -> 유사 관광지의 contentid
 
-        return render_template("course_recommend.html", items=vo)
-    else:
-        return render_template("course_recommend.html", items=vo)
+    for i, data in enumerate(vo):
+        #기준 관광지 10개 만큼 조회
+        sdao = SimilarDAO()
+        svo = sdao.select_similar(data.contentid)
+        #유사 관광지 3개 조회 (data.contentid는 현재 기준 관광지의 contentid)
+        vo[i].place_vo = svo
+        #기준 관광지 10개중 0번인덱스 안에 place_vo에 유사 관광지 리스트 대입
+        #꺼내서 쓸때에는 vo.place_vo.contentid -> 유사 관광지의 contentid
+            
+    return render_template("course_recommend.html", items=vo)
 
 app.run(debug=True)

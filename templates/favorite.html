@@ -15,20 +15,20 @@
         </div>
         <div class="recommend">
             <div class="content-box">
-                <!-- {% for item in items %}
+                {% for result in results %}
                     <div class="content">
                         <div class="checkbox_box">
-                            <input type="checkbox" id="{{item.contentid}}" name="favorite">
-                            <label for="{{item.contentid}}"></label>
+                            <input type="checkbox" id="{{result.contentid}}" name="favorite">
+                            <label for="{{result.contentid}}"></label>
                         </div>
-                        <img src="{{item.firstimage}}" alt="">
-                        <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
-                            <h3>{{item.title}}</h5>
-                            <p>{{item.sigungu}}</p>
-                            <p>#한옥 #전통문화</p>
+                        <img src="{{result.firstimage}}" alt="">
+                        <div class="txt" onclick="location.href='/post/{{result.contentid}}'">
+                            <h3>{{result.title}}</h5>
+                            <p>{{result.sigungu}}</p>
+                            <p>{{result.cat2}}</p>
                         </div>
                     </div>
-                {% endfor %} -->
+                {% endfor %}
             </div>
         </div>
         <div class="favorites-txt">

@@ -1,5 +1,6 @@
 import pymysql
 import sys
+import random
 sys.path.append(".")
 from vo.favorites_vo import FavoritesVO
 from vo.place_vo import PlaceVO
@@ -44,6 +45,14 @@ class FavoritesDAO:
             favorites.append(vo)
         return favorites
 
+    #유사도 조회 후 랜덤조회
+    def random(self, contentids):
+        sql = f"select distinct p2.* from place p left join `similar` s on s.no = p.contentid  left join place p2 on s.sno = p2.contentid where p.contentid in({', '.join(contentids)}) order by rand() limit 5;"
+        self.cursor.execute(sql)
+        results = self.cursor.fetchall()
+        # random.shuffle(all_contentids)
+        return results
+    
     def close(self):
         self.cursor.close()
         self.conn.close()

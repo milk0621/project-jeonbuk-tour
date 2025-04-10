@@ -66,6 +66,11 @@
                         </div>
                     {% endfor %}
                 </div>
+                <div id="map{{ loop.index }}" class="map" 
+                    data-mapx="{{ item.mapx }}" 
+                    data-mapy="{{ item.mapy }}" 
+                    style="width:100%; height:300px;">
+                </div>
                 <hr>
             {% endfor %}
         {% else %}
@@ -73,4 +78,26 @@
         {% endif %}
     </div>
 </body>
+<script src="{{url_for('static', filename='./js/jquery-3.7.1.js')}}"></script>
+<script>
+$(document).ready(function() {
+    $(".map").each(function() {
+        var mapContainer = this;
+        var mapx = $(this).data("mapx");
+        var mapy = $(this).data("mapy");
+
+        var mapOption = {
+            center: new kakao.maps.LatLng(mapy, mapx),
+            level: 6
+        };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        var markerPosition = new kakao.maps.LatLng(mapy, mapx);
+        var marker = new kakao.maps.Marker({ position: markerPosition });
+        marker.setMap(map);
+    });
+});
+</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=***REMOVED***"></script>
 </html>

@@ -102,6 +102,20 @@ $(document).ready(function() {
         var marker = new kakao.maps.Marker({ position: markerPosition });
         marker.setMap(map);
 
+        var iwContent = '<div style="padding-left:52px; padding-top:2px;">출발지</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        iwPosition = new kakao.maps.LatLng(mapy, mapx); //인포윈도우 표시 위치입니다
+        iwRemoveable = true;
+
+        // 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            position : iwPosition, 
+            content : iwContent,
+            removable : iwRemoveable
+        });
+        
+        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+        infowindow.open(map, marker);
+
         const linePath = [];
         const testLine = [];
         const waypoints = [];
@@ -112,6 +126,18 @@ $(document).ready(function() {
                 { position: new kakao.maps.LatLng(waypoint.y, waypoint.x)}
             );
             waypointMarker.setMap(map);
+            var wayContent = '<div style="padding-left:52px; padding-top:2px;">경유지</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            wayPosition = new kakao.maps.LatLng(waypoint.y, waypoint.x); //인포윈도우 표시 위치입니다
+
+            // 인포윈도우를 생성합니다
+            var wayinfowindow = new kakao.maps.InfoWindow({
+                position : wayPosition, 
+                content : wayContent,
+                removable : iwRemoveable
+        });
+        
+        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+        wayinfowindow.open(map, waypointMarker);
         })
 
         /* waypoints = data[idx].routes[0].summary.waypoints
@@ -125,6 +151,26 @@ $(document).ready(function() {
             marker.setMap(map)
         }
         */
+
+        //도착지 마커
+        var d = data[idx].routes[0].summary?.destination
+        var d_position = new kakao.maps.LatLng(d.y, d.x);
+        var destinationMarker = new kakao.maps.Marker({ position: d_position});
+        destinationMarker.setMap(map);
+
+        var d_Content = '<div style="padding-left:52px; padding-top:2px;">도착지</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        d_Position = new kakao.maps.LatLng(d.y, d.x); //인포윈도우 표시 위치입니다
+
+        // 인포윈도우를 생성합니다
+        var d_infowindow = new kakao.maps.InfoWindow({
+            position : d_Position, 
+            content : d_Content,
+            removable : iwRemoveable
+        });
+
+        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+        d_infowindow.open(map, destinationMarker);
+
 
         data[idx].routes[0].sections?.forEach(routers =>{
             routers.roads.forEach(router => {
@@ -156,6 +202,7 @@ $(document).ready(function() {
             }
         }
         */
+        
 
         //console.log(testLine)
         if(linePath.length > 0){

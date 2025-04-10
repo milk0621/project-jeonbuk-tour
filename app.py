@@ -210,18 +210,18 @@ def course_recommend():
 
     dao = PlaceDAO()
     vo = dao.get_course_place(region, val)
-    #기준 관광지 10개 조회
-
-
+    #기준 관광지 5개 조회
+    
     for i, data in enumerate(vo):
-        #기준 관광지 10개 만큼 조회
-        sdao = SimilarDAO()
-        svo = sdao.select_similar(data.contentid)
+        #기준 관광지 5개 만큼 조회
+        sdao = PlaceDAO()
+        svo = sdao.path(data.contentid)
+        print(svo)
         #유사 관광지 3개 조회 (data.contentid는 현재 기준 관광지의 contentid)
         vo[i].place_vo = svo
         #기준 관광지 10개중 0번인덱스 안에 place_vo에 유사 관광지 리스트 대입
         #꺼내서 쓸때에는 vo.place_vo.contentid -> 유사 관광지의 contentid
-            
+    
     return render_template("course_recommend.html", items=vo)
 
 app.run(debug=True)

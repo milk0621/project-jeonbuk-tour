@@ -11,6 +11,7 @@
     <div class="wrap">
         {% if items %}
         <h1>이런 코스는 어떠세요?</h1>
+            <p>선택하신 곳의 </p>
             {% for item in items %}
                 <div class="content-box">
                     <div class="content">
@@ -37,7 +38,7 @@
                             </p>
                         </div>
                     </div>
-                    {% for i in item.place_vo %}
+                    {% for i in item.place_vo[:3] %}
                         ->
                         <div class="content">
                             <img src="{{i.firstimage}}" alt="">

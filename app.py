@@ -6,6 +6,8 @@ from dao.view_list_dao import ViewlistDAO
 from dao.favorites_dao import FavoritesDAO
 from dao.similar_dao import SimilarDAO
 from dao.review_dao import ReviewDAO
+from util.mobility import mobility
+import json
 
 app = Flask(__name__)
 app.secret_key = "***REMOVED***"
@@ -210,10 +212,10 @@ def course_recommend():
 
     dao = PlaceDAO()
     vo = dao.get_course_place(region, val)
-    #기준 관광지 5개 조회
+    #기준 관광지 3개 조회
     
     for i, data in enumerate(vo):
-        #기준 관광지 5개 만큼 조회
+        #기준 관광지 3개 만큼 조회  
         sdao = PlaceDAO()
         svo = sdao.path(data.contentid)
         print(svo)
@@ -221,7 +223,8 @@ def course_recommend():
         vo[i].place_vo = svo
         #기준 관광지 10개중 0번인덱스 안에 place_vo에 유사 관광지 리스트 대입
         #꺼내서 쓸때에는 vo.place_vo.contentid -> 유사 관광지의 contentid
-    
-    return render_template("course_recommend.html", items=vo)
+    data = mobility(vo)
+    #print(data)
+    return render_template("course_recommend.html", items=vo, route=data)
 
 app.run(debug=True)

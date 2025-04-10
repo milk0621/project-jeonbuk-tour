@@ -238,7 +238,8 @@ class PlaceDAO:
             "mapy": result[0]["p_mapy"],
             "sigungu" : result[0]["p_sigungu"],
             "firstimage" : result[0]["p_image"],
-            "cat2" : result[0]["p_cat2"]
+            "cat2" : result[0]["p_cat2"],
+            "contentid" : result[0]["p_contentid"]
         }
 
         # 5. 나머지 장소 구성 (중복 제거)
@@ -254,7 +255,8 @@ class PlaceDAO:
                     "mapy": row["p_mapy"],
                     "sigungu" : row["p_sigungu"],
                     "firstimage" : row["p_image"],
-                    "cat2" : row["p_cat2"]
+                    "cat2" : row["p_cat2"],
+                    "contentid" : row["p_contentid"]
                 })
                 used.add(row['p_contentid'])
 
@@ -284,7 +286,8 @@ class PlaceDAO:
                 "mapy": p["mapy"],
                 "sigungu" : p["sigungu"],
                 "firstimage" : p["firstimage"],
-                "cat2" : p["cat2"]
+                "cat2" : p["cat2"],
+                "contentid" : p["contentid"]
             }
 
             if i == 0:

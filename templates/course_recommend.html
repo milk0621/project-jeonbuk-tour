@@ -11,10 +11,15 @@
     <div class="wrap">
         {% if items %}
         <h1>이런 코스는 어떠세요?</h1>
-            <p>선택하신 곳의 </p>
-            {% for item in items %}
-                <div class="content-box">
-                    <div class="content">
+        <p>선택하신 곳의 </p>
+        {% for item in items %}
+        <div class="content-box">
+            <div id="map{{ loop.index }}" class="map" 
+                data-mapx="{{ item.mapx }}" 
+                data-mapy="{{ item.mapy }}" 
+                style="width:100%; height:500px;">
+            </div>
+            <div class="content">
                         <img src="{{item.firstimage}}" alt="">
                         <div class="txt" onclick="location.href='/post/{{item.contentid}}'">
                             <h3>{{item.title}}</h5>
@@ -66,11 +71,6 @@
                         </div>
                     {% endfor %}
                 </div>
-                <div id="map{{ loop.index }}" class="map" 
-                    data-mapx="{{ item.mapx }}" 
-                    data-mapy="{{ item.mapy }}" 
-                    style="width:100%; height:300px;">
-                </div>
                 <hr>
             {% endfor %}
         {% else %}
@@ -81,7 +81,12 @@
 <script src="{{url_for('static', filename='./js/jquery-3.7.1.js')}}"></script>
 <script>
 $(document).ready(function() {
-    $(".map").each(function() {
+
+
+    let data = {{route|safe}}
+    console.log(data)
+
+    $(".map").each(function(idx) {
         var mapContainer = this;
         var mapx = $(this).data("mapx");
         var mapy = $(this).data("mapy");
@@ -96,8 +101,47 @@ $(document).ready(function() {
         var markerPosition = new kakao.maps.LatLng(mapy, mapx);
         var marker = new kakao.maps.Marker({ position: markerPosition });
         marker.setMap(map);
+
+        const linePath = [];
+        const testLine = [];
+        const waypoints = [];
+        data[idx].routes[0].summary.waypoints.forEach(waypoint=>{
+            var waypointMarker = new kakao.maps.Marker({ position: new kakao.maps.LatLng(waypoint.y, waypoint.x)});
+            waypointMarker.setMap(map);
+        })
+        data[idx].routes[0].sections.forEach(routers =>{
+            routers.roads.forEach(router => {
+                router.vertexes.forEach((vertex, index) => {
+                if (index % 2 === 0) {
+                    linePath.push(new kakao.maps.LatLng(router.vertexes[index + 1], router.vertexes[index]));
+                }
+                });
+            });
+        })
+
+        console.log(testLine)
+
+        var polyline = new kakao.maps.Polyline({
+            path: linePath,
+            strokeWeight: 5,
+            strokeColor: '#000000',
+            strokeOpacity: 0.7,
+            strokeStyle: 'solid'
+        });
+
+        var bounds = new kakao.maps.LatLngBounds(); 
+        for (i = 0; i < linePath.length; i++) {
+            
+            // LatLngBounds 객체에 좌표를 추가합니다
+            bounds.extend(linePath[i]);
+        }
+        map.setBounds(bounds);
+
+        polyline.setMap(map);
     });
 });
+
+
 </script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=***REMOVED***"></script>
 </html>

@@ -12,7 +12,9 @@ app.secret_key = "***REMOVED***"
 
 @app.route("/")
 def home():
-    return render_template("home.html")     
+    dao=PlaceDAO()
+    vo = dao.popularity_places()
+    return render_template("home.html", items=vo)     
 
 @app.route("/join", methods=["POST"])
 def join():

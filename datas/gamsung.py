@@ -63,5 +63,9 @@ gamsung_score = gamsung_review.groupby("contentid").sum()
 # gamsung_score.to_csv("./datas/csv/gamsung_score.csv")
 
 pre_region = pd.read_csv("./datas/csv/pre_region_data2.csv")
-print(pre_region)
 
+pre_region = pre_region.drop(columns="total_score")
+
+final_region = pd.merge(pre_region, gamsung_score, how="left", on="contentid")
+
+final_region.to_csv("./datas/csv/final_region.csv", index=False)

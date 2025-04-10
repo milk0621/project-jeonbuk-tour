@@ -1,6 +1,5 @@
 import pymysql
 import sys
-import random
 sys.path.append(".")
 from vo.favorites_vo import FavoritesVO
 from vo.place_vo import PlaceVO
@@ -51,7 +50,13 @@ class FavoritesDAO:
         self.cursor.execute(sql)
         results = self.cursor.fetchall()
         # random.shuffle(all_contentids)
-        return results
+        randoms = []
+        for result in results:
+            contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score = result
+            
+            vo = PlaceVO(contentid, overview, homepage, addr1, cat1, cat2, cat3, firstimage, mapx, mapy, title, sigungu, total_score)
+            randoms.append(vo) 
+        return randoms
     
     def close(self):
         self.cursor.close()

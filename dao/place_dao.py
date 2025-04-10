@@ -35,11 +35,11 @@ class PlaceDAO:
     #검색 조회
     def search_places(self, id, search=None, page=0):
         if id:
-            sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid"
+            sql = "select place.*, IF(favorites.id = %s, 'TRUE', 'FALSE') AS checked from place left join favorites on place.contentid = favorites.contentid and favorites.id = %s"
             if search:
                 sql += f" where title like CONCAT('%%', '{search}', '%%') or sigungu like CONCAT('%%', '{search}', '%%')"
             sql += f" limit {page}, 10"
-            self.cursor.execute(sql, (id))
+            self.cursor.execute(sql, (id, id))
         else:
             sql = "select *, 'False' as checked from place"
             if search:

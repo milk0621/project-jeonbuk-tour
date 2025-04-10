@@ -17,6 +17,7 @@ def mobility(maps):
             waypoint_list.append(f'{waypoint["mapx"]},{waypoint["mapy"]}')
         # 쿼리 파라미터
         params = {
+            "alternatives" : True,
             #출발지
             "origin": f'{map.mapx},{map.mapy}',
             
@@ -39,7 +40,7 @@ def mobility(maps):
         # 결과 출력
         if response.status_code == 200:
             data = response.json()
-            print("요청 성공:")
+            print(response.url)
             #print(data)
             result.append(data)
         else:

@@ -105,11 +105,28 @@ $(document).ready(function() {
         const linePath = [];
         const testLine = [];
         const waypoints = [];
-        data[idx].routes[0].summary.waypoints.forEach(waypoint=>{
-            var waypointMarker = new kakao.maps.Marker({ position: new kakao.maps.LatLng(waypoint.y, waypoint.x)});
+
+        //경유지 찾아서 마커
+        data[idx].routes[0].summary?.waypoints.forEach(waypoint=>{
+            var waypointMarker = new kakao.maps.Marker(
+                { position: new kakao.maps.LatLng(waypoint.y, waypoint.x)}
+            );
             waypointMarker.setMap(map);
         })
-        data[idx].routes[0].sections.forEach(routers =>{
+
+        /* waypoints = data[idx].routes[0].summary.waypoints
+        for(let i = 0; i < waypoints.length; i ++){
+            waypoints[i].x
+            waypoints[i].y
+            position = new kakao.maps.LatLng(waypoints[i].y, waypoints[i].x)
+            marker = new kakao.maps.Marker({
+                position : position
+            })
+            marker.setMap(map)
+        }
+        */
+
+        data[idx].routes[0].sections?.forEach(routers =>{
             routers.roads.forEach(router => {
                 router.vertexes.forEach((vertex, index) => {
                 if (index % 2 === 0) {
@@ -119,25 +136,48 @@ $(document).ready(function() {
             });
         })
 
-        console.log(testLine)
-
-        var polyline = new kakao.maps.Polyline({
-            path: linePath,
-            strokeWeight: 5,
-            strokeColor: '#000000',
-            strokeOpacity: 0.7,
-            strokeStyle: 'solid'
-        });
-
-        var bounds = new kakao.maps.LatLngBounds(); 
-        for (i = 0; i < linePath.length; i++) {
-            
-            // LatLngBounds 객체에 좌표를 추가합니다
-            bounds.extend(linePath[i]);
+        /* linePath = []
+        routers = data[idx].routes[0].sections
+        for(let i = 0; i < routers.length; i ++){
+            router = routers[i]
+            roads = router.roads
+            for(let j = 0; j < roads.length; j ++){
+                road = roads[j]
+                vertexes = road.vertexes
+                for(let k = 0; k < vertexes.length; k ++){
+                    if(k % 2 == 0){
+                        vertex = vertexes[k]
+                        x = vertex[k]
+                        y = vertex[k+1]
+                        line = new kakao.maps.LatLng(y, x)
+                        linePath.push(line)
+                    }
+                }
+            }
         }
-        map.setBounds(bounds);
+        */
 
-        polyline.setMap(map);
+        //console.log(testLine)
+        if(linePath.length > 0){
+            var polyline = new kakao.maps.Polyline({
+                path: linePath,
+                strokeWeight: 5,
+                strokeColor: '#000000',
+                strokeOpacity: 0.7,
+                strokeStyle: 'solid'
+            });
+    
+            var bounds = new kakao.maps.LatLngBounds(); 
+            for (i = 0; i < linePath.length; i++) {
+                
+                // LatLngBounds 객체에 좌표를 추가합니다
+                bounds.extend(linePath[i]);
+            }
+            map.setBounds(bounds);
+    
+            polyline.setMap(map);
+        }
+        
     });
 });
 

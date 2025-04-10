@@ -106,7 +106,7 @@ def region_plus():
     val = ", ".join(list(map(lambda x : f"\'{x}\'", regions)))
     print(val)
     dao = PlaceDAO()
-    result = dao.search_places(id, val, page)
+    result = dao.get_all_place(id, val, page)
     
     result_dict = []
     for vo in result:

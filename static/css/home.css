@@ -79,6 +79,7 @@ button { font-family: "pretendard", sans-serif; }
     transform: translateX(-50%);
     margin: 0 10px;
     text-align: left;
+    cursor: pointer;
 }
 .slide img{
     width: 450px;

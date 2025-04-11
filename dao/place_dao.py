@@ -119,7 +119,7 @@ class PlaceDAO:
                 sql += f" where cat2 in({cat})"
             if search:
                 sql += f" where title like CONCAT('%%', '{search}','%%') or sigungu like CONCAT('%%', '{search}','%%')"    
-            sql += f" order by total_score desc limit limit {page}, 10"
+            sql += f" order by total_score desc limit {page}, 10"
             self.cursor.execute(sql)
 
         result = self.cursor.fetchall()

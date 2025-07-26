@@ -1,4 +1,4 @@
-# Jeonbuk Tour Recommender
+# Jeonbuk Tour Project
 
 전라북도 관광 활성화를 위한 **추천 웹 플랫폼 프로젝트**입니다.  
 사용자 리뷰와 공공데이터 기반으로 **관광지 추천 및 여행 코스 자동 생성** 기능을 구현하였습니다.

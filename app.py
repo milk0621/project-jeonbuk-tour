@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()  # DAO import 전에 .env를 먼저 로드
 from flask import Flask, redirect, render_template, request, session, jsonify
 from dao.user_dao import UserDAO
 from dao.place_dao import PlaceDAO
@@ -10,7 +13,12 @@ from util.mobility import mobility
 import json
 
 app = Flask(__name__)
-app.secret_key = "***REMOVED***"
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
+
+# 템플릿에서 {{ kakao_js_key }}로 Kakao 지도 JS 키를 쓰기 위함
+@app.context_processor
+def inject_kakao_js_key():
+    return {"kakao_js_key": os.getenv("KAKAO_JS_KEY")}
 
 @app.route("/")
 def home():

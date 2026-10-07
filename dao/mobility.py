@@ -1,8 +1,9 @@
+import os
 import requests
 
 def mobility(self, maps):
     # Kakao Mobility API 키
-    api_key = "KakaoAK ***REMOVED***"  # "KakaoAK " 뒤에 띄어쓰기 반드시 포함
+    api_key = f"KakaoAK {os.getenv('KAKAO_REST_API_KEY')}"  # "KakaoAK " 뒤에 띄어쓰기 반드시 포함
 
     # 요청 URL
     url = "https://apis-navi.kakaomobility.com/v1/directions"

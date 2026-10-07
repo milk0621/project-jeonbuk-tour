@@ -1,13 +1,16 @@
+from dotenv import load_dotenv
+load_dotenv()
+import os
 from haversine import haversine
 from itertools import permutations
 import pymysql
 
 # 1. MySQL 연결
 conn = pymysql.connect(
-    host="***REMOVED***",
+    host=os.getenv("DB_HOST"),
     port=3306,
-    user="milk",
-    password="***REMOVED***",
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
     database="hotplace"
 )
 cursor = conn.cursor(pymysql.cursors.DictCursor)

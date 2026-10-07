@@ -1,3 +1,4 @@
+import os
 import pymysql
 import sys
 sys.path.append(".")
@@ -8,10 +9,10 @@ from itertools import permutations
 class PlaceDAO:
     def __init__(self):
         self.conn = pymysql.connect(
-            host="***REMOVED***",
+            host=os.getenv("DB_HOST"),
             port=3306,
-            user="milk",
-            password="***REMOVED***",
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
             database="hotplace"
         )
         self.cursor = self.conn.cursor()
